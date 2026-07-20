@@ -5,7 +5,7 @@ summary: "같은 모델을 연결해도 결과가 다른 이유를 모델 바깥
 status: completed
 status_scope: document
 review_status: reviewed
-version: 1.1.0
+version: 1.2.0
 created: 2026-07-20
 updated: 2026-07-20
 authors:
@@ -54,7 +54,6 @@ related_documents:
   - ../../TODO.md
 related_projects:
   - https://github.com/yjs000/law-rag
-implementation_status: proposed
 last_verified: 2026-07-20
 license: CC BY 4.0
 license_url: https://creativecommons.org/licenses/by/4.0/
@@ -64,14 +63,15 @@ references:
   - https://hermes-agent.nousresearch.com/docs/
   - https://docs.getorchestra.io/docs/ai-agents/overview
 changelog:
+  - version: 1.2.0
+    date: 2026-07-20
+    summary: "구현 추적을 제거하고 관련 프로젝트와 학습 목표를 단순화"
   - version: 1.1.0
     date: 2026-07-20
     summary: "승인 무결성, 비신뢰 입력, 재시도, 검증 profile 경계를 리뷰 결과에 따라 보강"
   - version: 1.0.0
     date: 2026-07-20
-    summary: "초기 공개 문서와 구현 TODO 작성"
-future_work:
-  - ../../TODO.md
+    summary: "초기 공개 문서와 학습 목표 작성"
 decision_log:
   - date: 2026-07-20
     decision: "개인 사이드프로젝트의 기본값은 Codex와 저장소 내 Roadmap으로 한다."
@@ -503,6 +503,8 @@ flowchart TB
 
 ## 7. 제품 팀용 참조 구조
 
+이 절의 schema, 상태, 보안 경계와 의사코드는 설계 선택을 설명하기 위한 학습 예시다. Wiki에서 실제 프로젝트의 구현 진행률이나 완료 증거를 추적하는 항목이 아니다.
+
 ### 7.1 프로젝트 레지스트리
 
 Discord 채널이나 기억에 현재 프로젝트를 암묵적으로 저장하지 않는다. 모든 요청에 `project_slug`를 포함하고 레지스트리에서 저장소와 규약을 찾는다.
@@ -817,7 +819,7 @@ flowchart LR
 
 Hermes는 이 세 하니스를 직접 대체하지 않는다. 결과를 함께 읽고 "검색 정확도 회귀를 먼저 고칠지, 새 기능을 진행할지"를 사용자와 결정하는 계층으로 둔다.
 
-현재 [yjs000/law-rag](https://github.com/yjs000/law-rag)은 관련 구현 프로젝트로 연결한다. 다만 이 글의 전체 참조 구조가 이미 구현됐다는 뜻은 아니다. 실제 적용 상태는 [루트 TODO](../../TODO.md)에서 `implemented / partial / proposed`로 검증해 기록한다.
+현재 관련 프로젝트는 [yjs000/law-rag](https://github.com/yjs000/law-rag)이다. 법률 RAG 프로젝트를 진행하며 Codex를 활용했고, 그 경험은 이 글에서 코딩 하니스와 저장소 컨텍스트의 역할을 판단하는 배경이 됐다.
 
 ---
 
@@ -1013,7 +1015,7 @@ OpenAI 사례는 Agent가 기존의 나쁜 패턴까지 빠르게 복제할 수 
 
 1. Codex App, CLI, Hermes의 체감 차이는 동일 조건 벤치마크로 검증하지 않았다.
 2. Orchestra Runtime의 Agent 기능은 공식 문서상 Git 접근과 PR 생성 사례를 제공하지만, 일반 소프트웨어 제품의 전체 개발 수명주기를 자동화하는 범용 보장은 아니다.
-3. `law-rag`에 제안된 전체 구조가 구현됐다고 주장하지 않는다.
+3. `law-rag`에서 Codex를 활용한 경험이 이 글의 모든 제안 구조를 실제로 검증했다는 뜻은 아니다.
 4. 제품 설계·마케팅용 전문 하니스의 효과는 평가 데이터와 실제 운영 실험이 필요하다.
 5. OpenAI Harness Engineering 사례의 처리량과 병합 정책은 특정 팀과 저장소의 결과다. 작은 팀이 같은 정책을 그대로 복제하면 안 된다.
 6. 도구의 기능과 문서는 빠르게 바뀐다. `last_verified` 이후에는 공식 문서를 다시 확인해야 한다.
@@ -1024,29 +1026,18 @@ OpenAI 사례는 Agent가 기존의 나쁜 패턴까지 빠르게 복제할 수 
 
 ## Related Projects
 
-| 프로젝트 | 연결 목적 | 구현 상태 | 다음 증거 |
-|---|---|---|---|
-| [yjs000/law-rag](https://github.com/yjs000/law-rag) | RAG 개발·데이터·평가 하니스의 적용 대상 | 기존 프로젝트, 이 글의 전체 구조는 `proposed` | [`P0-BASELINE-001`](../../TODO.md) |
-| Hermes 승인·Issue 브리지 | 제안·승인과 실행 계약의 분리 | `TODO`, 저장소 미정 | [`P2-APPROVAL-001`](../../TODO.md) |
-| Orchestra Agent Pipeline | 승인된 계약의 실행·관측 파일럿 | `TODO`, 저장소 미정 | [`P3-PILOT-001`](../../TODO.md) |
-| Codex/Hermes 비교 하니스 | 같은 조건에서 하니스 차이 측정 | `TODO`, 저장소 미정 | [`P0-BENCHMARK-001`](../../TODO.md) |
-
-구현 저장소가 생기면 front matter의 `related_projects`, 이 표, 루트 README, TODO의 완료 증거를 함께 갱신한다. 실제 commit·PR·검증 결과가 없으면 `implemented`로 표시하지 않는다.
+| 프로젝트 | 이 글과의 관계 | 활용 도구 |
+|---|---|---|
+| [yjs000/law-rag](https://github.com/yjs000/law-rag) | 법률 RAG를 개발하며 코딩 에이전트의 컨텍스트·도구·검증 경험을 쌓은 프로젝트 | Codex |
 
 ---
 
-## 14. 다음 구현
+## 14. 다음 학습
 
-실행 가능한 작업 목록은 [AI 에이전트 하니스 구현 TODO](../../TODO.md)에서 관리한다. 우선순위는 다음과 같다.
+이 글에서 이어지는 목표는 [모델보다 하니스 — 다음 프로젝트 목표](../../TODO.md)에 간단히 기록한다.
 
-1. `law-rag` 현재 구조와 이 글의 Stage 모델 간 gap 분석
-2. 같은 작업을 Codex App, CLI, Hermes에서 실행하는 통제 실험
-3. GitHub Issue 작업 계약과 완료 증거 규약
-4. Hermes의 제안 → 승인 → Issue 생성 최소 흐름
-5. Orchestra Agent Pipeline의 제한된 파일럿
-6. 코드·데이터·RAG 평가 하니스의 분리 측정
-
-문서와 구현 저장소는 서로 연결하되 구현되지 않은 항목은 TODO로 표시한다. 설계 문서가 미래 완료 상태를 현재 사실처럼 말하지 않게 하기 위해서다.
+1. `law-rag`에서 Codex를 활용한 경험을 바탕으로 코딩 하니스를 계속 이해한다.
+2. 앞으로 실제 프로젝트가 생기면 Discord, Hermes, Orchestra를 함께 사용해 보고 차이를 기록한다.
 
 ---
 
@@ -1091,17 +1082,17 @@ OpenAI 사례는 Agent가 기존의 나쁜 패턴까지 빠르게 복제할 수 
 
 ## 메타데이터 규격 설명
 
-이 문서의 front matter는 공개 Wiki에서 검색, 검증, 리뷰, 구현 연결을 지원하기 위해 다음 그룹으로 나뉜다.
+이 문서의 front matter는 공개 Wiki에서 검색, 검증, 리뷰, 학습 기록 연결을 지원하기 위해 다음 그룹으로 나뉜다.
 
 | 그룹 | 필드 | 목적 |
 |---|---|---|
 | 식별 | `title`, `description`, `summary`, `tags`, `keywords` | 검색과 문서 목록 표시 |
-| 생명주기 | `status`, `status_scope`, `review_status`, `version`, `created`, `updated`, `last_verified` | 문서 완료·리뷰 상태와 정보 신선도를 구현 상태와 분리해 추적 |
+| 생명주기 | `status`, `status_scope`, `review_status`, `version`, `created`, `updated`, `last_verified` | 문서 완료·리뷰 상태와 정보 신선도 기록 |
 | 책임 | `authors`, `reviewers`, `license`, `license_url` | 작성·검토·재사용 책임 명시 |
 | 독자 | `difficulty`, `estimated_reading_time`, `prerequisites`, `target_audience` | 독자가 읽기 전 난이도 판단 |
 | 경계 | `scope`, `out_of_scope`, `assumptions` | 문서가 주장하는 범위 제한 |
-| 연결 | `related_documents`, `related_projects`, `implementation_status` | 이론을 TODO와 실제 구현에 연결 |
+| 연결 | `related_documents`, `related_projects` | 글을 학습 목표와 실제 관련 프로젝트에 연결 |
 | 결정 | `decision_log` | 설계가 바뀐 이유와 시점 기록 |
-| 근거와 유지관리 | `references`, `changelog`, `future_work` | 1차 출처, 변경 이력, 후속 구현 추적 |
+| 근거와 유지관리 | `references`, `changelog` | 1차 출처와 변경 이력 기록 |
 
 모든 필드를 모든 문서에 강제할 필요는 없다. 최소 권장 필드는 `title`, `description`, `status`, `version`, `created`, `updated`, `authors`, `tags`, `last_verified`, `related_projects`다.

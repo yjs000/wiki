@@ -1,6 +1,6 @@
 # yjs000 Wiki
 
-공식 문서와 실제 프로젝트를 연결해 학습 과정, 기술 판단, 구현 계획을 기록하는 공개 기술 위키입니다.
+공식 문서와 실제 경험을 연결해 학습 과정, 기술 판단, 설계 관점의 변화를 기록하는 공개 기술 위키입니다.
 
 ## 문서
 
@@ -8,21 +8,10 @@
 
 - [모델보다 하니스: Codex, Hermes, Orchestra로 AI 작업 시스템을 설계한 과정](docs/ai-agent-systems/harness-engineering-codex-hermes-orchestra.md)
 
-## 구현 추적
+## 학습 목표
 
-- [AI 에이전트 하니스 구현 TODO](TODO.md)
+- [모델보다 하니스: 다음 프로젝트 목표](TODO.md)
 
 ## Related Projects
 
-- [yjs000/law-rag](https://github.com/yjs000/law-rag) — RAG 개발·데이터·평가 하니스 적용 대상. 현재 문서의 전체 참조 구조는 `proposed`이며 구현 여부는 `P0-BASELINE-001`에서 검증합니다.
-- Hermes 승인·Issue 브리지 — `TODO`, 저장소 미정.
-- Orchestra Agent Pipeline — `TODO`, 저장소 미정.
-- Codex/Hermes 비교 하니스 — `TODO`, 저장소 미정.
-
-## 문서 원칙
-
-1. 공식 문서와 1차 자료를 우선한다.
-2. 사실, 해석, 제안을 구분한다.
-3. 문제, 원인, 해결 과정, 결과와 한계를 함께 기록한다.
-4. 예제와 다이어그램을 포함해 처음 읽는 사람도 재현할 수 있게 한다.
-5. 관련 구현 저장소와 검증 상태를 명시한다.
+- [yjs000/law-rag](https://github.com/yjs000/law-rag) — 법률 RAG 프로젝트. 프로젝트를 진행하며 Codex를 활용했습니다.
