@@ -49,10 +49,10 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
   - `evidence`: `docs/evidence/P0-ISSUE-CONTRACT-001.yml`
 - [ ] `[P0-RELATED-PROJECTS-001]` 구현 프로젝트 연결 규약을 적용한다.
   - `repository`: `yjs000/wiki`
-  - `depends_on`: 구현 프로젝트별 검증 작업
+  - `depends_on`: `none`
   - `deliverable`: 아티클 front matter, 아래 `Related Projects`, 루트 README의 저장소 링크와 상태
-  - `verification`: repository URL, commit 또는 PR, 검증 상태가 완료 증거와 일치하는지 확인
-  - `done`: 증거가 있는 프로젝트만 `implemented`, 나머지는 `partial / proposed / TODO`로 표시됨
+  - `verification`: 구현 증거가 새로 생길 때마다 repository URL, commit 또는 PR, 검증 상태가 완료 증거와 일치하는지 확인
+  - `done`: 현재 등록된 모든 프로젝트에서 증거가 있는 항목만 `implemented`, 나머지는 `partial / proposed / TODO`로 표시됨
   - `evidence`: `docs/evidence/P0-RELATED-PROJECTS-001.yml`
 
 ## P1 — 개인 개발자용 최소 하니스
