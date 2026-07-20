@@ -4,13 +4,15 @@ description: "끊기는 에이전트 루프를 출발점으로 Codex, Hermes, Or
 summary: "같은 모델을 연결해도 결과가 다른 이유를 모델 바깥의 컨텍스트, 도구, 상태, 검증, 복구 구조에서 찾고, 판단·실행·검증의 소유권을 분리한다."
 status: completed
 status_scope: document
-review_status: in_review
-version: 1.0.0
+review_status: reviewed
+version: 1.1.0
 created: 2026-07-20
 updated: 2026-07-20
 authors:
   - yjs000
-reviewers: []
+reviewers:
+  - Hermes Agent spec review
+  - Hermes Agent quality review
 tags:
   - harness-engineering
   - ai-agents
@@ -62,6 +64,9 @@ references:
   - https://hermes-agent.nousresearch.com/docs/
   - https://docs.getorchestra.io/docs/ai-agents/overview
 changelog:
+  - version: 1.1.0
+    date: 2026-07-20
+    summary: "승인 무결성, 비신뢰 입력, 재시도, 검증 profile 경계를 리뷰 결과에 따라 보강"
   - version: 1.0.0
     date: 2026-07-20
     summary: "초기 공개 문서와 구현 TODO 작성"
