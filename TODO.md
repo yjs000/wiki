@@ -43,9 +43,9 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P0-ISSUE-CONTRACT-001]` GitHub Issue 작업 계약 템플릿을 만든다.
   - `repository`: `yjs000/law-rag`
   - `depends_on`: `P0-BASELINE-001`
-  - `deliverable`: 목표, 배경, 범위, 비범위, 수용 기준, 검증 명령, 관련 파일, 위험을 포함한 Issue Form
-  - `verification`: 샘플 Issue를 생성하고 필수 필드 누락 시 제출을 막는지 확인
-  - `done`: Agent가 추가 질문 없이 작업 범위와 완료 조건을 찾을 수 있음
+  - `deliverable`: 목표, 배경, 범위, 비범위, 수용 기준, 검증 명령, 관련 파일, 위험을 포함한 Issue Form과 JSON Schema
+  - `verification`: 필수 필드 누락, 길이 초과, 추가 명령·prompt injection 문자열, 승인 후 contract 편집 fixture
+  - `done`: 허용된 data만 Agent 입력으로 전달되고 승인 후 contract hash 변경은 기존 승인을 무효화함
   - `evidence`: `docs/evidence/P0-ISSUE-CONTRACT-001.yml`
 - [ ] `[P0-RELATED-PROJECTS-001]` 구현 프로젝트 연결 규약을 적용한다.
   - `repository`: `yjs000/wiki`
@@ -105,16 +105,16 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P2-APPROVAL-001]` Discord 제안 → 사용자 승인 → GitHub Issue 흐름을 구현한다.
   - `repository`: `TBD (Hermes approval bridge)`
   - `depends_on`: `P2-REGISTRY-001`, `P2-DEDUP-001`
-  - `deliverable`: 승인 command/button handler, Issue creator, integration test
-  - `verification`: 승인·거절·만료·재전송 시나리오 실행
-  - `done`: 승인 전에는 Issue가 없고 승인 후 계약을 갖춘 Issue가 정확히 하나 생성됨
+  - `deliverable`: 인증된 actor·시각·contract hash·만료·철회를 기록하는 append-only approval ledger, 승인 handler, Issue creator
+  - `verification`: 승인·거절·만료·철회·재전송·인증되지 않은 actor 시나리오 실행
+  - `done`: ledger만 승인 원본이며 Issue와 Hermes는 approval_id projection을 사용하고, 승인 후 계약을 갖춘 Issue가 정확히 하나 생성됨
   - `evidence`: `docs/evidence/P2-APPROVAL-001.yml`
 - [ ] `[P2-IDEMPOTENCY-001]` 승인 재처리의 중복 Issue 생성을 막는다.
   - `repository`: `TBD (Hermes approval bridge)`
   - `depends_on`: `P2-APPROVAL-001`
-  - `deliverable`: `approval_id`, `issue_fingerprint`, Issue number 저장소
-  - `verification`: 같은 승인 이벤트를 두 번 보내는 integration test
-  - `done`: 재처리 결과가 기존 Issue를 반환하고 새 Issue를 만들지 않음
+  - `deliverable`: canonical JSON fingerprint, `(approval_id, contract_hash)` unique constraint, reservation·upsert와 crash recovery
+  - `verification`: 동시 승인 전달, 같은 이벤트 재전송, Issue 생성 직후 프로세스 종료 fixture
+  - `done`: 모든 재처리가 기존 reservation·Issue를 반환하고 중복 Issue를 만들지 않음
   - `evidence`: `docs/evidence/P2-IDEMPOTENCY-001.yml`
 - [ ] `[P2-MESSAGE-HEADER-001]` 메시지에 프로젝트·Issue·상태 헤더를 고정한다.
   - `repository`: `TBD (Hermes approval bridge)`
@@ -136,16 +136,16 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P3-PILOT-001]` Orchestra Agent와 Pipeline으로 제한된 파일럿을 만든다.
   - `repository`: `TBD (Orchestra pilot)`
   - `depends_on`: `P0-ISSUE-CONTRACT-001`
-  - `deliverable`: 실패한 RAG 평가 분석 또는 작은 코드 수정 PR을 처리하는 Pipeline
-  - `verification`: 하나의 Agent Run이 Git 변경, PR, 감사 로그와 연결되는지 확인
-  - `done`: 같은 run ID로 입력·실행·PR·결과를 추적할 수 있음
+  - `deliverable`: 실패한 RAG 평가 분석 또는 작은 코드 수정 PR을 처리하는 Pipeline과 작업·저장소 한정 단기 credential 정책
+  - `verification`: Agent Run의 Git 변경·PR·감사 로그 연결, 기본 branch push·merge·secret 조회·임의 egress 거부 확인
+  - `done`: 같은 run ID로 입력·실행·PR·결과를 추적하고 Agent 자동화는 PR 생성에서 종료함
   - `evidence`: `docs/evidence/P3-PILOT-001.yml`
 - [ ] `[P3-ISSUE-INPUT-001]` GitHub Issue를 Orchestra Pipeline input으로 변환한다.
   - `repository`: `TBD (Orchestra pilot)`
   - `depends_on`: `P3-PILOT-001`
-  - `deliverable`: Issue contract parser와 Pipeline trigger adapter
-  - `verification`: 유효·누락·비승인 Issue fixture 실행
-  - `done`: 승인된 유효 Issue만 Pipeline Run을 생성함
+  - `deliverable`: signature·delivery replay·repository·actor·label allowlist 검증과 Issue JSON Schema parser를 포함한 trigger adapter
+  - `verification`: 유효·누락·비승인·위조 signature·replay·승인 후 편집 Issue fixture 실행
+  - `done`: approval ledger의 contract hash와 일치하는 승인된 Issue만 Pipeline Run을 생성함
   - `evidence`: `docs/evidence/P3-ISSUE-INPUT-001.yml`
 - [ ] `[P3-CORRELATION-001]` Issue, Pipeline Run, Agent Session, PR의 상관관계 ID를 정의한다.
   - `repository`: `TBD (Orchestra pilot)`
@@ -181,9 +181,9 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P4-CI-GATE-001]` PR에 독립 검증 gate를 적용한다.
   - `repository`: `TBD (first implementation repo)`
   - `depends_on`: `P1-VERIFY-CONTRACT-001`
-  - `deliverable`: lint, unit, integration, security, docs GitHub Actions jobs
-  - `verification`: 정상 PR은 통과하고 각 검사 실패 fixture는 해당 job에서 실패
-  - `done`: 필수 check가 모두 통과해야 병합 가능함
+  - `deliverable`: full commit SHA로 고정한 action, 최소 권한, checkout credential 비유지를 적용한 lint·unit·integration·security·docs jobs
+  - `verification`: 정상·검사 실패·fork PR fixture와 secret·OIDC·쓰기 권한 부재 확인
+  - `done`: 필수 check가 모두 통과해야 병합 가능하고 신뢰하지 않는 PR 코드는 배포 credential에 접근할 수 없음
   - `evidence`: `docs/evidence/P4-CI-GATE-001.yml`
 - [ ] `[P4-BRANCH-PROTECTION-001]` Agent가 우회할 수 없는 보호 브랜치 정책을 설정한다.
   - `repository`: `TBD (first implementation repo)`
@@ -202,9 +202,9 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P4-FAILURE-TAXONOMY-001]` 실패를 공통 taxonomy로 기록한다.
   - `repository`: `TBD (shared schema)`
   - `depends_on`: `P3-CORRELATION-001`
-  - `deliverable`: `provider / harness / tool / code / test / infrastructure` schema
-  - `verification`: 과거 또는 fixture 실패를 상호 배타적으로 분류
-  - `done`: 모든 실패 이벤트가 원인, 소유 계층, 다음 행동을 포함함
+  - `deliverable`: `provider / harness / tool / code / verification / orchestration / infrastructure`의 `primary_failure_class`와 `contributing_factors[]`, 관측 계층, 소유자, 재시도 가능 여부 schema
+  - `verification`: 원인 사슬이 있는 과거·fixture 실패를 분류하고 동일 사건의 계층별 중복 재시도가 없는지 확인
+  - `done`: 모든 실패 이벤트가 주 원인, 기여 요인, 소유 계층, retry owner, 다음 행동을 포함함
   - `evidence`: `docs/evidence/P4-FAILURE-TAXONOMY-001.yml`
 - [ ] `[P4-METRICS-001]` 작업·복구 품질 지표를 기록한다.
   - `repository`: `TBD (observability)`
