@@ -113,7 +113,7 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
   - `repository`: `TBD (Hermes approval bridge)`
   - `depends_on`: `P2-APPROVAL-001`
   - `deliverable`: 승인 대상 전체 필드를 포함하는 canonical contract hash, 검색용 fingerprint, `(approval_id, contract_hash)` unique constraint, reservation·upsert와 crash recovery
-  - `verification`: 범위·비범위·검증 profile·위험 변경, Unicode·null·배열 순서, 동시 승인 전달, 이벤트 재전송, Issue 생성 직후 프로세스 종료 fixture
+  - `verification`: 범위·비범위·관련 파일·검증 profile·위험 변경, Unicode·null·배열 순서, 동시 승인 전달, 이벤트 재전송, Issue 생성 직후 프로세스 종료 fixture
   - `done`: 모든 재처리가 기존 reservation·Issue를 반환하고 중복 Issue를 만들지 않음
   - `evidence`: `docs/evidence/P2-IDEMPOTENCY-001.yml`
 - [ ] `[P2-MESSAGE-HEADER-001]` 메시지에 프로젝트·Issue·상태 헤더를 고정한다.
@@ -142,7 +142,7 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
   - `evidence`: `docs/evidence/P3-PILOT-001.yml`
 - [ ] `[P3-ISSUE-INPUT-001]` GitHub Issue를 Orchestra Pipeline input으로 변환한다.
   - `repository`: `TBD (Orchestra pilot)`
-  - `depends_on`: `P3-PILOT-001`
+  - `depends_on`: `P3-PILOT-001`, `P2-APPROVAL-001`, `P2-IDEMPOTENCY-001`
   - `deliverable`: signature·delivery replay·repository·actor·label allowlist 검증과 Issue JSON Schema parser를 포함한 trigger adapter
   - `verification`: 유효·누락·비승인·위조 signature·replay·승인 후 편집 Issue fixture 실행
   - `done`: approval ledger의 contract hash와 일치하는 승인된 Issue만 Pipeline Run을 생성함
@@ -195,9 +195,9 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P4-CI-REPAIR-001]` CI 실패를 제한된 Agent 수정 입력으로 변환한다.
   - `repository`: `TBD (Orchestra pilot)`
   - `depends_on`: `P3-RETRY-OWNERSHIP-001`, `P4-CI-GATE-001`
-  - `deliverable`: 실패 로그 normalizer, repair trigger, 반복 제한
-  - `verification`: 같은 실패가 최대 횟수 뒤 사람에게 escalation되는지 확인
-  - `done`: check URL과 재현 명령이 Agent 입력에 포함되고 무한 루프가 없음
+  - `deliverable`: 실패 로그 normalizer, trusted verification profile의 command ID resolver, repair trigger, 반복 제한
+  - `verification`: 비신뢰 로그·proposal의 shell 문자열이 runner 입력으로 승격되지 않고, 같은 실패가 최대 횟수 뒤 사람에게 escalation되는지 확인
+  - `done`: Agent 입력에는 check URL과 `(verification_profile, immutable revision, command_id)`만 포함되고 무한 루프가 없음
   - `evidence`: `docs/evidence/P4-CI-REPAIR-001.yml`
 - [ ] `[P4-FAILURE-TAXONOMY-001]` 실패를 공통 taxonomy로 기록한다.
   - `repository`: `TBD (shared schema)`

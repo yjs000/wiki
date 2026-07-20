@@ -56,6 +56,17 @@ implementation_status: proposed
 last_verified: 2026-07-20
 license: CC BY 4.0
 license_url: https://creativecommons.org/licenses/by/4.0/
+references:
+  - https://openai.com/ko-KR/index/harness-engineering/
+  - https://openai.com/index/introducing-the-codex-app/
+  - https://hermes-agent.nousresearch.com/docs/
+  - https://docs.getorchestra.io/docs/ai-agents/overview
+changelog:
+  - version: 1.0.0
+    date: 2026-07-20
+    summary: "초기 공개 문서와 구현 TODO 작성"
+future_work:
+  - ../../TODO.md
 decision_log:
   - date: 2026-07-20
     decision: "개인 사이드프로젝트의 기본값은 Codex와 저장소 내 Roadmap으로 한다."
@@ -503,10 +514,9 @@ projects:
     orchestra:
       workspace: software-agents
       pipeline_alias: approved_issue_delivery
-    verification:
-      - "uv run pytest"
-      - "pnpm test"
-      - "pnpm lint"
+    verification_profile:
+      id: law-rag/pr-default
+      revision: "<full-commit-sha>"
 ```
 
 ### 7.2 분석은 제안으로 전달하고, 승인은 계약으로 바꾼다
@@ -528,9 +538,8 @@ evidence:
 recommendation: "API 계약과 UI를 함께 확장하고 호환성 테스트를 추가"
 risk:
   - "기존 API 소비자의 response schema 영향"
-verification:
-  - "uv run pytest tests/search -q"
-  - "pnpm --filter web test -- search-result"
+verification_profile_suggestion:
+  id: law-rag/pr-default
 ```
 
 Hermes는 이 제안을 Roadmap, 기존 Issue, 최근 PR과 비교해 중복과 우선순위를 확인한다. 사용자가 승인한 뒤에만 Issue를 만든다.
@@ -560,6 +569,10 @@ Codex 분석 → proposal artifact → Hermes 중복·우선순위 검토
   "out_of_scope": [
     "랭킹 알고리즘 변경",
     "관리자 페이지 개편"
+  ],
+  "related_files": [
+    "<search-response-schema-path>",
+    "<result-card-path>"
   ],
   "acceptance_criteria": [
     "모든 검색 결과에 source_url이 있다.",
@@ -611,6 +624,7 @@ CONTRACT_FIELDS = (
     "background",
     "scope",
     "out_of_scope",
+    "related_files",
     "acceptance_criteria",
     "verification_profile",
     "risk",
@@ -915,7 +929,9 @@ stateDiagram-v2
   "evidence": {
     "pull_request": "<pull-request-url>",
     "check_run": "<check-run-url>",
-    "command": "uv run pytest tests/search -q"
+    "verification_profile": "law-rag/pr-default",
+    "verification_revision": "<full-commit-sha>",
+    "failed_command_id": "api-search-tests"
   },
   "retry": {
     "owner": "coding_agent",
@@ -1001,6 +1017,19 @@ OpenAI 사례는 Agent가 기존의 나쁜 패턴까지 빠르게 복제할 수 
 
 ---
 
+## Related Projects
+
+| 프로젝트 | 연결 목적 | 구현 상태 | 다음 증거 |
+|---|---|---|---|
+| [yjs000/law-rag](https://github.com/yjs000/law-rag) | RAG 개발·데이터·평가 하니스의 적용 대상 | 기존 프로젝트, 이 글의 전체 구조는 `proposed` | [`P0-BASELINE-001`](../../TODO.md) |
+| Hermes 승인·Issue 브리지 | 제안·승인과 실행 계약의 분리 | `TODO`, 저장소 미정 | [`P2-APPROVAL-001`](../../TODO.md) |
+| Orchestra Agent Pipeline | 승인된 계약의 실행·관측 파일럿 | `TODO`, 저장소 미정 | [`P3-PILOT-001`](../../TODO.md) |
+| Codex/Hermes 비교 하니스 | 같은 조건에서 하니스 차이 측정 | `TODO`, 저장소 미정 | [`P0-BENCHMARK-001`](../../TODO.md) |
+
+구현 저장소가 생기면 front matter의 `related_projects`, 이 표, 루트 README, TODO의 완료 증거를 함께 갱신한다. 실제 commit·PR·검증 결과가 없으면 `implemented`로 표시하지 않는다.
+
+---
+
 ## 14. 다음 구현
 
 실행 가능한 작업 목록은 [AI 에이전트 하니스 구현 TODO](../../TODO.md)에서 관리한다. 우선순위는 다음과 같다.
@@ -1068,5 +1097,6 @@ OpenAI 사례는 Agent가 기존의 나쁜 패턴까지 빠르게 복제할 수 
 | 경계 | `scope`, `out_of_scope`, `assumptions` | 문서가 주장하는 범위 제한 |
 | 연결 | `related_documents`, `related_projects`, `implementation_status` | 이론을 TODO와 실제 구현에 연결 |
 | 결정 | `decision_log` | 설계가 바뀐 이유와 시점 기록 |
+| 근거와 유지관리 | `references`, `changelog`, `future_work` | 1차 출처, 변경 이력, 후속 구현 추적 |
 
 모든 필드를 모든 문서에 강제할 필요는 없다. 최소 권장 필드는 `title`, `description`, `status`, `version`, `created`, `updated`, `authors`, `tags`, `last_verified`, `related_projects`다.
