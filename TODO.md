@@ -91,9 +91,9 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P2-REGISTRY-001]` 프로젝트 레지스트리 스키마를 정의한다.
   - `repository`: `TBD (Hermes approval bridge)`
   - `depends_on`: `P0-ISSUE-CONTRACT-001`
-  - `deliverable`: `project_slug`, repository, branch, roadmap, issue policy를 포함한 schema와 validator
-  - `verification`: 정상·누락·중복 slug fixture 검증
-  - `done`: 잘못된 프로젝트 입력이 실행 전에 거부됨
+  - `deliverable`: `project_slug`, repository, branch, roadmap, issue policy, verification profile ID·immutable revision·허용 command ID 매핑을 포함한 trusted schema와 resolver
+  - `verification`: 정상·누락·중복 slug, 자유 형식 shell 문자열, 미등록 profile·command ID, branch/tag 같은 mutable revision fixture
+  - `done`: resolver가 full commit SHA의 등록된 profile·command ID만 argv runner에 반환하고 다른 프로젝트 입력은 실행 전에 거부함
   - `evidence`: `docs/evidence/P2-REGISTRY-001.yml`
 - [ ] `[P2-DEDUP-001]` Roadmap, Issue, PR의 중복 확인 절차를 구현한다.
   - `repository`: `TBD (Hermes approval bridge)`

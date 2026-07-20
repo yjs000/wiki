@@ -12,6 +12,13 @@
 
 - [AI 에이전트 하니스 구현 TODO](TODO.md)
 
+## Related Projects
+
+- [yjs000/law-rag](https://github.com/yjs000/law-rag) — RAG 개발·데이터·평가 하니스 적용 대상. 현재 문서의 전체 참조 구조는 `proposed`이며 구현 여부는 `P0-BASELINE-001`에서 검증합니다.
+- Hermes 승인·Issue 브리지 — `TODO`, 저장소 미정.
+- Orchestra Agent Pipeline — `TODO`, 저장소 미정.
+- Codex/Hermes 비교 하니스 — `TODO`, 저장소 미정.
+
 ## 문서 원칙
 
 1. 공식 문서와 1차 자료를 우선한다.
