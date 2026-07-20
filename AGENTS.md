@@ -51,6 +51,8 @@
 
 초심자가 읽을 수 있도록 새 용어는 **정의 → 배경 → 기존 방식과 차이 → 예시** 순서로 설명한다.
 
+장문 아티클은 제목 아래에 한 줄짜리 메타데이터 표를 두고, 본문이 시작되기 전에 주요 `##` 절로 이동하는 목차를 둔다. 메타데이터 표와 목차 사이에는 글의 핵심을 보여 주는 한 줄 리드만 둘 수 있다. 목차에는 본문 탐색에 필요한 상위 절만 넣고 세부 소제목까지 나열하지 않는다.
+
 ## 5. 근거와 주장
 
 - 공식 문서와 1차 자료를 우선한다.
@@ -87,16 +89,35 @@
 
 ## 8. 메타데이터
 
-장문 문서에는 필요에 따라 다음 정보를 front matter에 기록한다.
+모든 아티클에 메타데이터를 넣되 독자의 읽기를 방해하지 않도록 작게 유지한다.
 
-- `title`, `description`, `summary`
-- `status`, `version`, `created`, `updated`, `last_verified`
-- `authors`, `reviewers`
-- `tags`, `categories`, `keywords`
-- `difficulty`, `estimated_reading_time`, `target_audience`, `prerequisites`
-- `scope`, `out_of_scope`, `assumptions`
-- `references`, `related_documents`, `related_projects`
-- `decision_log`, `changelog`, `license`
+front matter의 기본 필드는 다음 일곱 개다.
+
+```yaml
+---
+title: "문서 제목"
+description: "한 문장 설명"
+author: yjs000
+published: YYYY-MM-DD
+updated: YYYY-MM-DD
+reading_time: 약 N분
+tags: [tag-one, tag-two]
+---
+```
+
+본문 제목 아래에는 다음처럼 한 줄 표로 보여 준다.
+
+```markdown
+| 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
+|---|---|---|---|
+| yjs000 | YYYY-MM-DD | 약 N분 | Tag One · Tag Two |
+```
+
+- 읽는 시간은 front matter와 코드 블록을 제외한 본문 단어 수를 분당 약 200단어로 계산해 반올림한다.
+- 게시일과 수정일이 같으면 날짜 하나만 표시한다. 다르면 `게시 YYYY-MM-DD · 수정 YYYY-MM-DD`로 구분한다.
+- 상세 출처는 본문의 `참고 자료`, 판단 변화는 본문 서사에 둔다.
+- review 상태, 긴 대상 독자 목록, scope 목록, changelog, decision log를 front matter에 쌓지 않는다. Git 이력과 본문이 그 역할을 맡는다.
+- 특별한 검색 요구가 있을 때만 필드를 추가하고, 기본값으로 되돌릴 수 있으면 추가하지 않는다.
 
 Wiki는 구현 상태 저장소가 아니다. 문서 자체의 상태와 실제 프로젝트 존재 여부만 기록하고, 세부 구현 진행률·작업 ID·증거 파일을 추적하지 않는다.
 

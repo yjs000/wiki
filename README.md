@@ -6,7 +6,7 @@
 
 ### AI 에이전트 시스템
 
-- [모델보다 하니스: Codex, Hermes, Orchestra로 AI 작업 시스템을 설계한 과정](docs/ai-agent-systems/harness-engineering-codex-hermes-orchestra.md)
+- [모델보다 하니스: Codex, Hermes, Orchestra로 살펴본 AI 작업 환경과 파이프라인](docs/ai-agent-systems/harness-engineering-codex-hermes-orchestra.md)
 
 ## 학습 목표
 
