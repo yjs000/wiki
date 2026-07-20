@@ -134,7 +134,7 @@ flowchart LR
 | orchestration | 중복 실행, lease 만료, 잘못된 분기 | 워크플로 제어면 | idempotency, 상태 전이 복구 |
 | infrastructure | runner 장애, 네트워크 단절, 저장 공간 부족 | 실행 인프라 | 인프라 복구 후 체크포인트 재개 |
 
-실패는 하나의 원인만 갖지 않을 수 있다. 이벤트에는 `primary_failure_class` 하나와 `contributing_factors[]`, 관측 계층, 소유자, 재시도 가능 여부를 함께 기록한다. 이 구조는 원인 사슬을 보존하면서 재시도 책임은 한 계층에만 배정한다.
+실패는 하나의 원인만 갖지 않을 수 있다. 이벤트에는 `primary_failure_class` 하나와 `contributing_factors[]`, 관측 계층, 소유자, 재시도 가능 여부를 함께 기록한다. 주 분류는 "어느 계층에서 발견됐는가"가 아니라 "무엇을 고쳐야 해결되는가"로 정한다. 테스트가 정상적으로 코드 결함을 발견했다면 `code`, 테스트가 빠졌거나 잘못된 성공을 냈다면 `verification`이다. 이 구조는 원인 사슬을 보존하면서 재시도 책임은 한 계층에만 배정한다.
 
 문제의 이름을 "Hermes가 덜 똑똑하다"에서 "하니스의 어느 계약이 끊겼는가"로 바꾸는 순간, 측정하고 고칠 수 있는 대상이 생겼다.
 
@@ -566,10 +566,10 @@ Codex 분석 → proposal artifact → Hermes 중복·우선순위 검토
     "effective_date가 없으면 UI에 '시행일 미상'을 표시한다.",
     "지정된 검증 명령이 모두 통과한다."
   ],
-  "verification_commands": [
-    "uv run pytest tests/search -q",
-    "pnpm --filter web test -- search-result"
-  ],
+  "verification_profile": {
+    "id": "law-rag/pr-default",
+    "revision": "<full-commit-sha>"
+  },
   "risk": "기존 API 소비자의 response schema 호환성",
   "approval_ref": {
     "approval_id": "apr_20260720_001",
@@ -582,6 +582,21 @@ Codex 분석 → proposal artifact → Hermes 중복·우선순위 검토
 
 Issue 본문, 댓글, 저장소 문서, 실패 로그는 모두 신뢰하지 않는 데이터다. 시스템 지시와 연결하지 않고 JSON Schema로 허용 필드·길이·형식을 검증한 뒤, 고정된 Agent prompt의 data 영역에만 넣는다. "이전 지시를 무시하라" 같은 텍스트가 들어 있어도 권한이나 실행 정책을 바꿀 수 없어야 한다.
 
+특히 Issue에서 자유 형식 shell 명령을 받지 않는다. `verification_profile`은 신뢰된 프로젝트 레지스트리에 버전 관리되는 검증 계약을 가리킨다. runner는 shell 문자열을 합성하지 않고 고정 executable과 argv를 실행하며, workspace 밖 파일·secret·임의 egress에 접근할 수 없는 sandbox에서 동작한다.
+
+```yaml
+# trusted registry at the approved revision
+verification_profiles:
+  law-rag/pr-default:
+    commands:
+      - executable: uv
+        argv: [run, pytest, tests/search, -q]
+      - executable: pnpm
+        argv: [--filter, web, test, --, search-result]
+    network: deny
+    secrets: []
+```
+
 Issue 생성은 idempotent해야 한다. Hermes가 응답을 못 받은 뒤 같은 승인 요청을 다시 처리해도 중복 Issue가 생기지 않아야 한다. fingerprint는 빠른 중복 후보 키이지 의미적으로 같은 작업을 완벽하게 판정하는 장치가 아니다.
 
 ```python
@@ -589,26 +604,60 @@ from hashlib import sha256
 import json
 import unicodedata
 
+CONTRACT_FIELDS = (
+    "schema_version",
+    "project_slug",
+    "goal",
+    "background",
+    "scope",
+    "out_of_scope",
+    "acceptance_criteria",
+    "verification_profile",
+    "risk",
+)
 
-def _normalize(value: str) -> str:
-    return unicodedata.normalize("NFC", value).strip()
+
+def _nfc(value):
+    if isinstance(value, str):
+        return unicodedata.normalize("NFC", value)
+    if isinstance(value, list):
+        return [_nfc(item) for item in value]  # 배열 순서는 계약의 일부
+    if isinstance(value, dict):
+        return {key: _nfc(value[key]) for key in sorted(value)}
+    return value  # schema는 integer, boolean, null만 허용하고 float는 거부
 
 
-def issue_fingerprint(project_slug: str, goal: str, criteria: list[str]) -> str:
-    payload = {
-        "schema_version": "1.0",
-        "project_slug": _normalize(project_slug).casefold(),
-        "goal": _normalize(goal),
-        "criteria": sorted({_normalize(item) for item in criteria}),
-    }
+def _hash_json(payload: dict) -> str:
     canonical = json.dumps(
-        payload,
+        _nfc(payload),
         sort_keys=True,
         separators=(",", ":"),
         ensure_ascii=False,
+        allow_nan=False,
     )
     return sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def approved_contract_hash(contract: dict) -> str:
+    # approval_ref, UI metadata, 실행 결과는 승인 대상에서 제외한다.
+    approved = {field: contract[field] for field in CONTRACT_FIELDS}
+    return _hash_json(approved)
+
+
+def issue_fingerprint(project_slug: str, goal: str, criteria: list[str]) -> str:
+    # 검색용 후보 키: contract hash나 승인 증거로 사용하지 않는다.
+    payload = {
+        "schema_version": "1.0",
+        "project_slug": unicodedata.normalize("NFC", project_slug).strip().casefold(),
+        "goal": unicodedata.normalize("NFC", goal).strip(),
+        "criteria": sorted({
+            unicodedata.normalize("NFC", item).strip() for item in criteria
+        }),
+    }
+    return _hash_json(payload)
 ```
+
+배열 순서는 보존하고 객체 key만 정렬한다. schema version이 달라지면 다른 계약으로 취급한다. JSON Schema는 float와 알 수 없는 필드를 거부하고 문자열 정규화 정책을 고정해야 한다. ledger에는 hash만이 아니라 승인 당시의 canonical payload도 보관해 감사를 가능하게 한다.
 
 해시 계산만으로 동시 요청을 막을 수는 없다. 저장소에서 `(approval_id, contract_hash)` 또는 정책에 맞는 fingerprint에 unique constraint를 걸고, Issue 생성 권한을 얻기 전에 원자적으로 reservation을 만든다. 프로세스가 Issue 생성 직후 죽어도 다음 실행이 GitHub 검색 결과와 reservation을 대조해 복구해야 한다.
 
@@ -832,7 +881,7 @@ stateDiagram-v2
     Failed --> Escalated: non-retryable || budget exhausted
     Escalated --> [*]
     PRReady --> Verifying: CI 시작
-    Verifying --> Running: 코드 수정 필요
+    Verifying --> Failed: CI 실패
     Verifying --> Review: CI 통과
     Review --> Done: 수용 기준 확인
     Blocked --> Running: 계약 변경 없는 정보 보완
@@ -844,6 +893,7 @@ stateDiagram-v2
 |---|---|---|
 | Proposed → Approved | approval service | `approval_id + contract_hash` |
 | Approved → Running | Orchestra trigger adapter | webhook `delivery_id` |
+| Verifying → Failed | GitHub Actions callback | `workflow + head_sha + check_run_id` |
 | Failed → Running | 실패를 소유한 한 계층 | `run_id + attempt` |
 | PRReady → Verifying | GitHub Actions | `workflow + head_sha` |
 | Review → Done | 수용 기준 검토자 | `issue + verified_head_sha` |
@@ -856,8 +906,8 @@ stateDiagram-v2
   "project_slug": "law-rag",
   "issue_number": 142,
   "state": "failed",
-  "primary_failure_class": "verification",
-  "contributing_factors": ["code"],
+  "primary_failure_class": "code",
+  "contributing_factors": [],
   "observed_at_layer": "github_actions",
   "owned_by": "coding_agent",
   "retryable": true,

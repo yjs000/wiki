@@ -43,9 +43,9 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P0-ISSUE-CONTRACT-001]` GitHub Issue 작업 계약 템플릿을 만든다.
   - `repository`: `yjs000/law-rag`
   - `depends_on`: `P0-BASELINE-001`
-  - `deliverable`: 목표, 배경, 범위, 비범위, 수용 기준, 검증 명령, 관련 파일, 위험을 포함한 Issue Form과 JSON Schema
-  - `verification`: 필수 필드 누락, 길이 초과, 추가 명령·prompt injection 문자열, 승인 후 contract 편집 fixture
-  - `done`: 허용된 data만 Agent 입력으로 전달되고 승인 후 contract hash 변경은 기존 승인을 무효화함
+  - `deliverable`: 목표, 배경, 범위, 비범위, 수용 기준, 신뢰된 `verification_profile` 참조, 관련 파일, 위험을 포함한 Issue Form과 JSON Schema
+  - `verification`: 필수 필드 누락, 길이 초과, 자유 형식 shell 명령, prompt injection 문자열, 승인 후 contract 편집 fixture
+  - `done`: Issue가 실행 명령을 직접 제공하지 않고 허용된 data만 Agent 입력으로 전달되며, 승인 대상 전체의 contract hash 변경은 기존 승인을 무효화함
   - `evidence`: `docs/evidence/P0-ISSUE-CONTRACT-001.yml`
 - [ ] `[P0-RELATED-PROJECTS-001]` 구현 프로젝트 연결 규약을 적용한다.
   - `repository`: `yjs000/wiki`
@@ -81,9 +81,9 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P1-VERIFY-CONTRACT-001]` 저장소의 검증 명령을 한 곳에 정의한다.
   - `repository`: `yjs000/law-rag`
   - `depends_on`: `P0-BASELINE-001`
-  - `deliverable`: 로컬·CI 공통 검증 명령과 완료 증거 schema
-  - `verification`: 깨끗한 clone에서 전체 명령 실행
-  - `done`: Agent와 CI가 같은 검증 계약을 사용하고 결과가 링크로 남음
+  - `deliverable`: 버전 관리되는 검증 profile, 고정 executable·argv runner, sandbox·egress 정책과 완료 증거 schema
+  - `verification`: 깨끗한 clone의 정상 profile 실행과 shell operator·저장소 밖 접근·secret·network 거부 fixture
+  - `done`: Agent와 CI가 승인된 revision의 같은 profile을 사용하고 Issue의 자유 형식 문자열은 실행되지 않으며 결과가 링크로 남음
   - `evidence`: `docs/evidence/P1-VERIFY-CONTRACT-001.yml`
 
 ## P2 — Hermes 승인 계층
@@ -105,15 +105,15 @@ related_document: docs/ai-agent-systems/harness-engineering-codex-hermes-orchest
 - [ ] `[P2-APPROVAL-001]` Discord 제안 → 사용자 승인 → GitHub Issue 흐름을 구현한다.
   - `repository`: `TBD (Hermes approval bridge)`
   - `depends_on`: `P2-REGISTRY-001`, `P2-DEDUP-001`
-  - `deliverable`: 인증된 actor·시각·contract hash·만료·철회를 기록하는 append-only approval ledger, 승인 handler, Issue creator
+  - `deliverable`: 인증된 actor·시각·canonical contract payload와 hash·만료·철회를 기록하는 append-only approval ledger, 승인 handler, Issue creator
   - `verification`: 승인·거절·만료·철회·재전송·인증되지 않은 actor 시나리오 실행
   - `done`: ledger만 승인 원본이며 Issue와 Hermes는 approval_id projection을 사용하고, 승인 후 계약을 갖춘 Issue가 정확히 하나 생성됨
   - `evidence`: `docs/evidence/P2-APPROVAL-001.yml`
 - [ ] `[P2-IDEMPOTENCY-001]` 승인 재처리의 중복 Issue 생성을 막는다.
   - `repository`: `TBD (Hermes approval bridge)`
   - `depends_on`: `P2-APPROVAL-001`
-  - `deliverable`: canonical JSON fingerprint, `(approval_id, contract_hash)` unique constraint, reservation·upsert와 crash recovery
-  - `verification`: 동시 승인 전달, 같은 이벤트 재전송, Issue 생성 직후 프로세스 종료 fixture
+  - `deliverable`: 승인 대상 전체 필드를 포함하는 canonical contract hash, 검색용 fingerprint, `(approval_id, contract_hash)` unique constraint, reservation·upsert와 crash recovery
+  - `verification`: 범위·비범위·검증 profile·위험 변경, Unicode·null·배열 순서, 동시 승인 전달, 이벤트 재전송, Issue 생성 직후 프로세스 종료 fixture
   - `done`: 모든 재처리가 기존 reservation·Issue를 반환하고 중복 Issue를 만들지 않음
   - `evidence`: `docs/evidence/P2-IDEMPOTENCY-001.yml`
 - [ ] `[P2-MESSAGE-HEADER-001]` 메시지에 프로젝트·Issue·상태 헤더를 고정한다.
