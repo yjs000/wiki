@@ -12,6 +12,10 @@
 
 - [RAG에서 독립적인 AI 시스템 설계까지: 3년 학습 로드맵](docs/learning-roadmaps/ai-systems-study-roadmap.md)
 
+### 학습 증거
+
+- [RAG 전체 경로 개념 게이트: 첫 설명과 정정 기록](docs/learning-evidence/2026-07-22-rag-pipeline-concept-gate.md)
+
 ## 학습 목표
 
 - [모델보다 하니스: 다음 프로젝트 목표](TODO.md)
