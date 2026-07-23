@@ -952,12 +952,12 @@ Symphony와 Hermes를 `law-rag`에서 함께 사용했다는 의미는 아니다
 
 - OpenAI, [Codex 오케스트레이션을 위한 오픈소스 사양: Symphony](https://openai.com/ko-KR/index/open-source-codex-orchestration-symphony/)
 - OpenAI, [Symphony GitHub Repository](https://github.com/openai/symphony)
-- OpenAI, [Symphony Service Specification](https://github.com/openai/symphony/blob/main/SPEC.md)
-- OpenAI, [Symphony Elixir Reference Implementation](https://github.com/openai/symphony/tree/main/elixir)
-- OpenAI, [Symphony Elixir README](https://github.com/openai/symphony/blob/main/elixir/README.md)
-- OpenAI, [Symphony WORKFLOW.md Example](https://github.com/openai/symphony/blob/main/elixir/WORKFLOW.md)
+- OpenAI, [Symphony Service Specification](https://github.com/openai/symphony/blob/1f3219bb1ea5f69a1305dc594e79b0db57c113c5/SPEC.md)
+- OpenAI, [Symphony Elixir Reference Implementation](https://github.com/openai/symphony/tree/1f3219bb1ea5f69a1305dc594e79b0db57c113c5/elixir)
+- OpenAI, [Symphony Elixir README](https://github.com/openai/symphony/blob/1f3219bb1ea5f69a1305dc594e79b0db57c113c5/elixir/README.md)
+- OpenAI, [Symphony WORKFLOW.md Example](https://github.com/openai/symphony/blob/1f3219bb1ea5f69a1305dc594e79b0db57c113c5/elixir/WORKFLOW.md)
 
-조사 시점의 Symphony source 기준 commit은 `1f3219bb1ea5f69a1305dc594e79b0db57c113c5`다.
+위 사양과 참조 구현 링크는 조사 시점의 commit `1f3219bb1ea5f69a1305dc594e79b0db57c113c5`에 고정했다. 현재 기능을 확인할 때는 repository `main`과 다시 비교해야 한다.
 
 ### Hermes Agent
 
