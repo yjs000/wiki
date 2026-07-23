@@ -4,7 +4,7 @@ description: "끊기는 에이전트 루프를 출발점으로 Codex, Hermes, Sy
 author: yjs000
 published: 2026-07-20
 updated: 2026-07-23
-reading_time: 약 24분
+reading_time: 약 25분
 tags: [harness-engineering, ai-agents, symphony]
 ---
 
@@ -12,7 +12,7 @@ tags: [harness-engineering, ai-agents, symphony]
 
 | 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
 |---|---|---|---|
-| yjs000 | 게시 2026-07-20 · 수정 2026-07-23 | 약 24분 | Harness Engineering · AI Agents · Symphony |
+| yjs000 | 게시 2026-07-20 · 수정 2026-07-23 | 약 25분 | Harness Engineering · AI Agents · Symphony |
 
 좋은 모델만 고른다고 긴 작업이 끝까지 가는 것은 아니다. 모델이 읽을 지도, 사용할 도구, 이어받을 상태, 실패를 감지할 검사, 다시 시작할 위치를 함께 설계해야 한다.
 
