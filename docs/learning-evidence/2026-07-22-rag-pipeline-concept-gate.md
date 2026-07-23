@@ -1,9 +1,9 @@
 ---
 title: "RAG 전체 경로 개념 게이트: 첫 설명과 정정 기록"
-description: "법령 RAG의 파싱부터 근거 표시까지 처음 설명한 내용과 놓친 데이터 경계·책임 분리를 보존한 학습 증거"
+description: "법령 RAG의 파싱부터 근거 표시까지 처음 설명한 내용과 놓친 데이터 경계·책임 분리를 보존한 개념 검증 기록"
 author: yjs000
 published: 2026-07-22
-updated: 2026-07-22
+updated: 2026-07-23
 reading_time: 약 8분
 tags: [rag, learning-evidence, chunking, embedding, retrieval]
 ---
@@ -12,7 +12,7 @@ tags: [rag, learning-evidence, chunking, embedding, retrieval]
 
 | 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
 |---|---|---|---|
-| yjs000 | 2026-07-22 | 약 8분 | RAG · Learning Evidence · Chunking · Embedding · Retrieval |
+| yjs000 | 게시 2026-07-22 · 수정 2026-07-23 | 약 8분 | RAG · Learning Evidence · Chunking · Embedding · Retrieval |
 
 처음의 답을 지우지 않고 보존하면서, 법령 RAG에서 데이터가 바뀌는 경계와 코드·AI 모델의 책임을 다시 구분한 기록이다.
 
@@ -29,7 +29,7 @@ tags: [rag, learning-evidence, chunking, embedding, retrieval]
 
 ## 학습 맥락
 
-이 기록은 [AI 시스템 학습 로드맵의 1블록 구현 전 개념 게이트](../learning-roadmaps/ai-systems-study-roadmap.md#1블록-2026년-7월-22일8월-11일--rag-전체-경로를-작게-완성)에 대한 첫 학습 증거다. 법령 원문이 답변의 근거가 되기까지 각 단계의 입력, 출력, 저장 위치, 실패 증상을 설명하고 네 개의 필수 질문에 답했다.
+이 기록은 [AI 시스템 학습 로드맵의 1블록 구현 전 개념 게이트](../learning-roadmaps/ai-systems-study-roadmap.md#1블록-2026년-7월-22일8월-11일--rag-전체-경로를-작게-완성)에 대한 첫 개념 검증 기록이다. 법령 원문이 답변의 근거가 되기까지 각 단계의 입력, 출력, 저장 위치, 실패 증상을 설명하고 네 개의 필수 질문에 답했다.
 
 - **현재 증거 수준:** 개념 설명
 - **아직 없는 증거:** 독립 실행 청킹·임베딩·검색 실험, 프로젝트 코드·테스트를 통한 적용 확인
