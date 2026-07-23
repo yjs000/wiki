@@ -4,6 +4,10 @@
 
 ## 문서
 
+### AI 기초 개념
+
+- [임베딩을 이해하는 데 필요한 수학: 차원, 내적, 코사인 유사도와 벡터 축약](docs/ai-foundations/embedding-vectors-and-cosine-similarity.md)
+
 ### AI 에이전트 시스템
 
 - [모델보다 하니스: Codex, Hermes, Orchestra로 살펴본 AI 작업 환경과 파이프라인](docs/ai-agent-systems/harness-engineering-codex-hermes-orchestra.md)

@@ -33,6 +33,7 @@
 - `TODO.md`: 세부 구현 추적이 아닌 간단한 학습·프로젝트 목표
 - `docs/`: 장문 기술 문서와 설계 기록
 - `docs/ai-agent-systems/`: AI 에이전트, 하니스, 오케스트레이션 관련 글
+- `docs/ai-foundations/`: 임베딩, 벡터 검색 등 독립적으로 읽는 AI·ML 기초 개념 글
 - `docs/learning-roadmaps/`: 장기 학습 목표와 단계별 실행 계획
 - `docs/learning-evidence/`: 학습자의 원문 답변, 정정 과정, 놓친 개념을 보존하는 학습 증거와 작성 규칙
 
