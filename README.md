@@ -32,6 +32,7 @@
 #### AI 에이전트 시스템
 
 - [모델보다 하니스: Codex, Hermes, Symphony로 살펴본 AI 작업 환경과 오케스트레이션](docs/ai-agent-systems/harness-engineering-codex-hermes-orchestra.md)
+- [하네싱: Superpowers의 강한 워크플로우에서 자기개선 하니스까지](docs/ai-agent-systems/harnessing-superpowers-self-improving-harness.md)
 
 ## Related Projects
 
