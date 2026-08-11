@@ -473,7 +473,7 @@ DB 조회를 tool로 감싸는 설계는 "검색을 코드가 아니라 LLM의 �
 
 **미검증 가설:** Safeguard의 fail-open 설계와 도구 결과(웹검색·벡터 검색 모두) 미검사가 실제 프로덕션 배포에서 얼마나 위험한지, 그리고 리랭커·하이브리드 검색을 rag-assistant에 추가했을 때 답변 품질이 실제로 얼마나 개선되는지는 이번 읽기로 확인하지 못했다. 프롬프트 인젝션 페이로드를 검색 결과에 심어 게이트를 우회하는지, 검색 품질 개선안을 실제로 붙여 답변을 비교하는 실험이 다음 단계로 필요하다.
 
-**추천 — 다음 학습 순서:** 지원 포지션이 LangChain·LangGraph를 직접 언급하고 있어, Function Calling → LangChain Agent → LangGraph → Agentic RAG 직접 구현 → Multi-Agent → CrewAI/OpenAI Agents SDK/ADK 비교 순으로 이어간다. 그중 LangGraph를 가장 깊게 볼 우선순위를 둔 이유는, 이 문서에서 읽은 rag-assistant의 검색·안전성 검사 구조를 참고해 법령 RAG의 `retrieve → rerank → 검증 → generation → verification → retry` 흐름을 그래프로 옮겨볼 수 있기 때문이다. 세부 항목은 `TODO.md`의 "에이전트 프레임워크 학습 순서"에 둔다.
+**추천 — 다음 학습 순서:** 지원 포지션이 LangChain·LangGraph를 직접 언급하고 있어, 이 문서에서 읽은 rag-assistant의 검색·안전성 검사 구조를 출발점으로 다음 학습 순서를 정했다. 상세 계획과 각 단계의 통과 조건은 [에이전트 프레임워크 학습 로드맵](../learning-roadmaps/agent-framework-study-roadmap.md)에 둔다.
 
 ## 참고 자료
 

@@ -9,6 +9,7 @@
 목표까지의 학습 순서와 단계별 실행 계획입니다.
 
 - [RAG에서 독립적인 AI 시스템 설계까지: 3년 학습 로드맵](docs/learning-roadmaps/ai-systems-study-roadmap.md)
+- [에이전트 프레임워크 학습 로드맵: Function Calling에서 프레임워크 비교까지](docs/learning-roadmaps/agent-framework-study-roadmap.md)
 
 ### 실습·검증 기록
 
