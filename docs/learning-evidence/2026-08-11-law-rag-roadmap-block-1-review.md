@@ -1,26 +1,27 @@
 ---
-title: "law-rag 로드맵 1블록 점검: 구현 진도와 학습 증거를 분리해 보기"
-description: "AI 시스템 학습 로드맵의 1블록 통과 조건을 law-rag의 실험·설계·커밋 기록과 대조해 구현 성과, 부족한 학습 증거, 다음 검증을 구분한 기록"
+title: "law-rag 로드맵 1블록 점검: 구현 진도, 파이프라인 결정과 학습 증거"
+description: "AI 시스템 학습 로드맵의 1블록 통과 조건과 law-rag의 질문 라우팅·검색·생성·근거 검증 결정을 대조해 구현 성과와 부족한 학습 증거를 구분한 기록"
 author: yjs000
 published: 2026-08-11
 updated: 2026-08-11
-reading_time: 약 11분
-tags: [law-rag, learning-evidence, study-roadmap, retrieval, evaluation]
+reading_time: 약 9분
+tags: [law-rag, learning-evidence, study-roadmap, retrieval, grounding, evaluation]
 ---
 
-# law-rag 로드맵 1블록 점검: 구현 진도와 학습 증거를 분리해 보기
+# law-rag 로드맵 1블록 점검: 구현 진도, 파이프라인 결정과 학습 증거
 
 | 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
 |---|---|---|---|
-| yjs000 | 2026-08-11 | 약 11분 | Law RAG · Learning Evidence · Study Roadmap · Retrieval · Evaluation |
+| yjs000 | 2026-08-11 | 약 9분 | Law RAG · Learning Evidence · Study Roadmap · Retrieval · Grounding · Evaluation |
 
-오늘은 [AI 시스템 학습 로드맵](../learning-roadmaps/ai-systems-study-roadmap.md)의 1블록 종료일이다. law-rag는 MVP를 넘어 검색·근거 검증·사전 라우팅까지 구현했지만, 구현량과 로드맵이 요구한 학습 증거는 같은 것이 아니다. 이 기록은 둘을 섞지 않고 현재 위치를 판정한다.
+오늘은 [AI 시스템 학습 로드맵](../learning-roadmaps/ai-systems-study-roadmap.md)의 1블록 종료일이다. law-rag는 MVP를 넘어 검색·근거 검증·사전 라우팅까지 구현했지만, 구현량과 로드맵이 요구한 학습 증거는 같은 것이 아니다. 이 기록은 현재 질문 파이프라인의 결정까지 한곳에 모으되, 구현 성과와 학습 증거를 섞지 않고 현재 위치를 판정한다.
 
 ## 목차
 
 - [기록의 범위와 증거 수준](#기록의-범위와-증거-수준)
 - [1블록 판정: 부분 충족](#1블록-판정-부분-충족)
 - [구현으로 확인한 것](#구현으로-확인한-것)
+- [현재 질문 파이프라인과 결정](#현재-질문-파이프라인과-결정)
 - [로드맵보다 앞서 시도한 것](#로드맵보다-앞서-시도한-것)
 - [아직 통과했다고 말할 수 없는 것](#아직-통과했다고-말할-수-없는-것)
 - [다음 검증](#다음-검증)
@@ -28,7 +29,7 @@ tags: [law-rag, learning-evidence, study-roadmap, retrieval, evaluation]
 
 ## 기록의 범위와 증거 수준
 
-이 글은 [RAG 전체 경로 개념 게이트](2026-07-22-rag-pipeline-concept-gate.md)와 [질문 파이프라인 적용 기록](2026-08-11-law-rag-pipeline-application-and-decisions.md)의 후속 감사다.
+이 글은 [RAG 전체 경로 개념 게이트](2026-07-22-rag-pipeline-concept-gate.md)의 후속 감사이자, 그 개념을 실제 질문 라우팅·검색·생성·검증 경로에 적용하며 내린 결정을 통합한 기록이다.
 
 - **학습자 원문:** 이번에는 새 설명 답안을 받지 않았다. 따라서 아래의 문장을 학습자가 처음부터 이해하고 직접 쓴 답처럼 기록하지 않는다. 기존 개념 게이트의 원문은 그대로 보존한다.
 - **프로젝트 적용 근거:** 완료 계획, 활성 평가 계획, 설계 문서, 생성된 실험 보고서와 커밋 이력을 대조했다.
@@ -60,15 +61,62 @@ tags: [law-rag, learning-evidence, study-roadmap, retrieval, evaluation]
 
 **실험 C**는 선택한 법령 범위의 205개 청크를 대상으로 exhaustive cosine 검색과 고정 질문 평가를 만들었다. 이후 실험 D는 구조 표지가 실제 조문을 덮어쓰는 corpus 결함과 평탄화된 목의 부모 경로 문제를 고치고, Article Recall과 Evidence Recall을 분리했다. 이 순서는 검색 알고리즘을 먼저 바꾸기보다 원문·계층·근거 경계를 먼저 검증한 선택이다.
 
-### 현재 질문 파이프라인은 MVP보다 넓어졌다
-
-질문은 구조화된 조문 경로인지 일반 자연어인지 먼저 나뉜다. 구조 질의는 정확 경로를 우선하고, 자연어는 dense 검색을 기본으로 한다. 같은 조문 안의 하위 청크가 문맥을 독점하지 않도록 조문 단위로 묶은 뒤, 제한된 근거만 생성 모델에 전달한다.
-
-답변 단계에서도 모델의 생성과 법률 주장 허용을 분리했다. Terra 요청은 근거가 0건이거나 사전 라우팅에서 실시간 정보·외부 문서·추가 사실이 필요하다고 판단돼도, AI가 가용하면 질문에 맞춘 설명을 생성한다. 그러나 빈 근거에서는 `unanswerable` 또는 필요한 사실이 있는 `clarification_required`만 구조 검증을 통과한다. 즉, 설명을 생성하는 경로와 근거 없는 법률 주장을 막는 경로를 함께 유지한다.
-
 ### 수동 진단과 Gold는 작은 규모에서 더 엄격해졌다
 
 D-10은 10문항의 현재 DB 검색 결과를 raw top 10과 조문 문맥으로 기록하고, 사용자가 10/10 검토를 완료한 수동 진단이다. 이 결과를 곧바로 일반 성능으로 부르지 않고, 뒤이어 10문항 × 3,066개 후보의 30,660개 판정을 분리해 D-10 calibration Gold로 봉인했다. 이 Gold는 조정에 사용한 소표본이므로 held-out 성능이나 운영 release gate가 아니라는 한계도 함께 남겼다.
+
+## 현재 질문 파이프라인과 결정
+
+현재 질문 경로의 목표는 질문에 어울리는 법령 원문을 찾고, 그 원문을 벗어난 법률 주장을 답변에 넣지 않는 것이다. 모델 호출 여부와 법적 주장 허용 여부를 같은 조건으로 묶지 않은 것이 핵심이다.
+
+```mermaid
+flowchart TD
+    A[사용자 질문] --> B[입력 정규화와 기준일 확인]
+    B --> C{사전 라우팅}
+    C -->|법령 검색 가능| D{조문 경로가 있는가}
+    D -->|예| E[정확한 조문 경로 조회]
+    D -->|아니오| F[dense 검색]
+    F -->|후보 없음 또는 임베딩 불가| G[내부 keyword fallback]
+    F -->|후보 있음| H[조문 단위 중복 제거]
+    E --> H
+    G --> H
+    C -->|실시간·외부 문서·추가 사실 필요| I[검색 없이 LLM 안내 생성]
+    H --> J[근거와 함께 LLM 답변 생성]
+    J --> K[구조·인용 검증]
+    I --> K
+    K -->|통과| L[AI 답변]
+    K -->|실패 또는 AI 불가| M[안전한 폴백]
+```
+
+### 질문 유형에 따라 검색 전에 경로를 나눈다
+
+`제1조 제2항`처럼 원문 위치를 명시한 질문은 의미 유사도보다 정확 경로 조회가 우선이다. 일반 자연어 질문은 문서와 질문을 같은 임베딩 계약으로 비교하는 dense 검색을 기본으로 사용한다. 검색 후보를 그대로 생성 모델에 넣지 않고, 같은 조문에 속한 하위 청크의 중복을 줄인 뒤 서로 다른 조문을 제한된 문맥으로 전달한다.
+
+실시간 정보, 사용자가 올린 문서의 대조, 개인별 사실이 더 필요한 질문은 법령 corpus만으로 답을 확정할 수 없다. 이 경우 검색을 억지로 실행해 무관한 법령을 근거처럼 보이게 하지 않는다. 웹 UI의 답변 모드는 현재 `terra` 하나이므로 AI가 가용하면 검색 근거가 0건이거나 사전 라우팅에서 차단된 질문도 LLM 생성 단계까지 보낸다. 다만 빈 근거에서 구조 검증을 통과할 수 있는 결과는 본문과 체크리스트가 비어 있는 `unanswerable` 또는 필요한 추가 사실을 명시한 `clarification_required`뿐이다. AI 호출·생성·구조 검증이 실패하거나 AI를 사용할 수 없으면 기존의 안전한 폴백을 사용하며, LLM을 호출했다는 사실만으로 근거 검증을 생략하지 않는다.
+
+### 검색 알고리즘보다 corpus와 법률 계층을 먼저 고쳤다
+
+**설계 판단:** 검색 품질이 낮을 때 새로운 검색 기법부터 붙이지 않았다. Open API 원문에서 조문인지 구조 표지인지 구분하고 `조 → 항 → 호 → 목`의 부모 경로를 복원하는 검증을 먼저 적용했다.
+
+모델이나 검색기는 corpus에서 빠진 문장을 찾을 수 없다. 조문 ID가 맞아도 필요한 본문이 누락되면 답변 근거로는 불충분하다. 이 판단은 Article Recall과 Evidence Recall을 분리한 실험 기록에 근거한다. BM25, hybrid, RRF, reranker는 현재 dense 기준선보다 직접 근거 품질을 높인다는 별도 평가 증거가 생길 때만 다시 검토한다. HNSW는 현재 프로젝트의 운영·실험 경로에 도입하지 않는다.
+
+### route와 action은 서로 다른 시점의 판단이다
+
+**공식 구현 사실:** `route`는 검색 전에 무엇을 할지 결정한다. `legal_search`는 법령 검색을 진행하고, `realtime_required`·`external_document_required`·`clarification_required`는 검색을 멈추거나 추가 사실을 요청한다. 반대로 `action`은 검색과 생성 뒤 답변이 얼마나 완결됐는지를 나타낸다.
+
+따라서 `route=legal_search`이면서 생성 뒤 `action=clarification_required`가 될 수 있다. 전자는 검색을 실행해 볼 만큼 질문이 열려 있었다는 뜻이고, 후자는 검색해도 개인별 사실이 부족했다는 뜻이다. 둘을 하나의 값으로 덮어쓰면 어느 경계에서 답변이 좁아졌는지 추적할 수 없다.
+
+### LLM은 설명하고 코드는 근거 허용을 판정한다
+
+초기 검증기는 답변 문장만 보고 확신 있는 법률 주장인지 조심스러운 한계 설명인지 정규식으로 추측했다. 한국어의 `할 수 없다`처럼 법적 금지와 인식론적 한계가 같은 표면형을 가질 수 있어 이 방식은 오탐을 만들었다.
+
+현재는 모델이 `fully_answerable`, `partially_answerable`, `clarification_required`, `unanswerable` 중 어느 상태인지 구조 필드로 선언하고, 서버가 상태별로 검증 강도를 다르게 적용한다. 인용 ID가 실제 제공된 근거에 속하는지, 무근거 숫자나 규범어가 섞이지 않았는지는 결정론적 코드가 확인한다. LLM의 설명 능력을 사용하되 법률 근거의 허용 경계를 모델의 재량에 맡기지 않는 선택이다.
+
+### keyword 검색은 제거된 것이 아니라 내부 fallback으로 남았다
+
+초기 지도에서는 검색 전용 사용자 경로의 다단계 keyword 검색이 중심 흐름에 가까웠다. 현재 웹 UI는 LLM 답변 모드 하나로 정리돼 과거의 사용자 노출 경로를 최신 지도에서 제거했다.
+
+그러나 keyword 검색 자체가 시스템에서 사라진 것은 아니다. 일반 자연어 질문에서 dense 후보가 0건이거나 임베딩을 만들 수 없을 때만, 점수를 합치지 않는 독립적인 내부 fallback으로 실행된다. 사용자에게 노출되는 search-only 경험의 제거와 근거 후보를 찾는 내부 안전 경로의 유지는 서로 다른 변화다.
 
 ## 로드맵보다 앞서 시도한 것
 
@@ -89,6 +137,14 @@ E-10은 D-10 문맥으로 실제 NVIDIA 호출을 수행했다. 라우팅은 10�
 [LangGraph·LangChain 실전 코드 읽기](../ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md)는 로드맵 4블록보다 이른 시점에 이미 작성됐다. 진입점, 그래프 등록, 상태, 도구 호출, RAG 검색 도구의 흐름을 실제 파일·함수·상태로 추적한 기록이다.
 
 하지만 로드맵 4블록의 달성 조건에는 핵심 동작의 축소 재구현과 현재 RAG에 채택·비채택 판단이 포함된다. 이 두 증거가 없으므로, 이 글은 "4블록을 통과했다"가 아니라 **코드 읽기 선행 학습 기록이 있다**고만 판정한다.
+
+현재 law-rag는 고정된 입력 검증·라우팅·검색·생성·인용 검증 파이프라인이며 LangGraph나 LangChain을 도입한 상태가 아니다. 다음 요구가 실제로 생길 때만 프레임워크 도입을 다시 평가한다.
+
+- 여러 도구를 순서와 조건에 따라 호출해야 한다.
+- 사용자의 추가 사실을 받은 뒤 중단된 작업을 안전하게 재개해야 한다.
+- 여러 단계의 상태, 재시도, 사람 검토를 요청 단위로 보존해야 한다.
+
+그때 LangChain은 모델·프롬프트·도구를 같은 호출 인터페이스로 묶는 후보이고, LangGraph는 도구 호출 순서·조건부 분기·상태·중단과 재개를 명시하는 후보가 될 수 있다. 프레임워크가 들어와도 조문 경로, 출처 버전, 인용 ID 검증, 근거 부족 표시 같은 안전 경계는 결정론적 계층에 남긴다.
 
 ## 아직 통과했다고 말할 수 없는 것
 
@@ -113,7 +169,6 @@ E-10은 D-10 문맥으로 실제 NVIDIA 호출을 수행했다. 라우팅은 10�
 
 - [AI 시스템 학습 로드맵](../learning-roadmaps/ai-systems-study-roadmap.md) — 1~4블록의 달성 조건
 - [RAG 전체 경로 개념 게이트](2026-07-22-rag-pipeline-concept-gate.md) — 학습자 원문과 초기 정정
-- [질문 파이프라인 적용 기록](2026-08-11-law-rag-pipeline-application-and-decisions.md) — 현재 질문 경로와 근거 경계
 - [실험 A 완료 계획](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/completed/0016-experiment-a-plain-text-chunking.md) — 조문 청킹 관찰
 - [실험 B 완료 계획](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/completed/0017-experiment-b-sentence-embeddings.md) — 임베딩·코사인 관찰
 - [실험 C 완료 계획](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/completed/0019-experiment-c-retrieval-observability.md) — dense 기준선과 고정 평가
@@ -122,3 +177,9 @@ E-10은 D-10 문맥으로 실제 NVIDIA 호출을 수행했다. 라우팅은 10�
 - [D-10 calibration Gold](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/completed/0030-d-10-full-corpus-qrels-adjudication.md) — 전 후보 판정과 사용자 adjudication
 - [E-10 활성 평가 계획](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/active/0032-experiment-e-10-ai-answer-evaluation.md) — 생성 안전성 진단과 미완료 모델 비교
 - [RAG 파이프라인 설계](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/design-docs/rag-pipeline.md) — 현재 검색·답변 계약
+- [근거 우선 검색 품질 설계](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/design-docs/evidence-first-retrieval-quality.md) — corpus·법률 계층 우선과 검색 알고리즘 채택 기준
+- [질문 사전 라우팅 설계](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/design-docs/pre-retrieval-question-routing.md) — tier1/tier2와 검색 전 route 계약
+- [답변 근거 검증 설계](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/design-docs/answer-grounding-validation.md) — 생성 후 action 신호와 결정론적 검증
+- [Terra 모드의 항상 생성 설계](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/design-docs/always-generate-answer.md) — 근거 0건·사전 라우팅 차단에서도 설명을 생성하는 경로
+- [질문 파이프라인 지도](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/generated/law-rag-question-pipeline-map.html) — 현재 경로를 시각화한 생성 문서
+- [LangGraph·LangChain 코드 읽기](../ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md) — 후속 확장 후보를 평가하기 위한 별도 학습 기록
