@@ -17,6 +17,7 @@
 
 - [실습·검증 기록 작성 규칙과 전체 목록](docs/learning-evidence/README.md)
 - [RAG 전체 경로 개념 게이트: 첫 설명과 정정 기록](docs/learning-evidence/2026-07-22-rag-pipeline-concept-gate.md)
+- [법률 RAG 질문 파이프라인 적용 기록: 근거 경계와 생성 경로의 결정](docs/learning-evidence/2026-08-11-law-rag-pipeline-application-and-decisions.md)
 
 ### 학습 목표
 
