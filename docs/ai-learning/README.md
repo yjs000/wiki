@@ -34,3 +34,5 @@ AI 기초 개념부터 RAG, AI 에이전트, 하네스, 오케스트레이션까
 ### AI 에이전트 시스템
 
 - [모델보다 하니스: Codex, Hermes, Symphony로 살펴본 AI 작업 환경과 오케스트레이션](../ai-agent-systems/harness-engineering-codex-hermes-orchestra.md)
+- [하네싱: Superpowers의 강한 워크플로우에서 자기개선 하니스까지](../ai-agent-systems/harnessing-superpowers-self-improving-harness.md)
+- [LangGraph·LangChain 실전 코드 읽기: agent-service-toolkit 진입점부터 에이전트 3종까지](../ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md)

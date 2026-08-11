@@ -33,6 +33,7 @@
 
 - [모델보다 하니스: Codex, Hermes, Symphony로 살펴본 AI 작업 환경과 오케스트레이션](docs/ai-agent-systems/harness-engineering-codex-hermes-orchestra.md)
 - [하네싱: Superpowers의 강한 워크플로우에서 자기개선 하니스까지](docs/ai-agent-systems/harnessing-superpowers-self-improving-harness.md)
+- [LangGraph·LangChain 실전 코드 읽기: agent-service-toolkit 진입점부터 에이전트 3종까지](docs/ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md)
 
 ## Related Projects
 
