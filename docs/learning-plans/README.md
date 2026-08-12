@@ -4,7 +4,7 @@
 
 ## 학습계획 주제
 
-- [RAG 시스템](rag-system/README.md) — RAG 전체 경로, 검색 평가, 모델 평가, 오픈소스 읽기와 하네스 설계
+- [RAG 시스템](rag-system/README.md) — 러프한 RAG 구현에서 LlamaIndex, LangChain, LangGraph 도입까지의 세 단계 계획
 - [에이전트 프레임워크](agent-framework/README.md) — Function Calling부터 LangGraph, Agentic RAG, Multi-Agent와 프레임워크 비교
 
 ## 관련 기록
