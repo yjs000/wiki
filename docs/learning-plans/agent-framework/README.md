@@ -33,6 +33,10 @@ tags: [langgraph, langchain, agentic-rag, multi-agent, study-roadmap]
 
 이 계획은 [RAG 시스템 학습계획](../rag-system/README.md)의 하위 갈래다. 상위 계획은 에이전트 런타임 구현을 13개월차 이후로 미루지만, 이 문서는 그 전 단계인 "기존 프레임워크의 문법과 설계를 코드 읽기·비교로 이해하는" 범위만 다룬다. 최소 루프를 프레임워크 없이 직접 구현하는 것은 여전히 상위 계획의 13~15개월차 몫이다.
 
+### 이 주제의 학습목표
+
+- [ ] **에이전트 프레임워크를 학습 순서대로 익힌다** — Function Calling → LangChain Agent → LangGraph → Agentic RAG 직접 구현 → Multi-Agent → 프레임워크 비교.
+
 ## 학습 순서
 
 ```text
