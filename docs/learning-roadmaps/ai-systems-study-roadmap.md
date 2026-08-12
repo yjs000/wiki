@@ -3,8 +3,8 @@ title: "RAG에서 독립적인 AI 시스템 설계까지: 3년 학습 로드맵"
 description: "에너지 법령 RAG를 출발점으로 검색, 모델 평가, 오픈소스 분석, 하네스, 에이전트 런타임을 단계적으로 익히는 실행 계획"
 author: yjs000
 published: 2026-07-22
-updated: 2026-07-22
-reading_time: 약 27분
+updated: 2026-08-12
+reading_time: 약 25분
 tags: [ai-systems, rag, harness-engineering, study-roadmap]
 ---
 
@@ -12,7 +12,7 @@ tags: [ai-systems, rag, harness-engineering, study-roadmap]
 
 | 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
 |---|---|---|---|
-| yjs000 | 2026-07-22 | 약 27분 | AI Systems · RAG · Harness Engineering · Study Roadmap |
+| yjs000 | 게시 2026-07-22 · 수정 2026-08-12 | 약 25분 | AI Systems · RAG · Harness Engineering · Study Roadmap |
 
 새 기술을 곧바로 큰 프로젝트로 만드는 습관을 멈추고, 개념 설명과 작은 실험을 통과한 지식만 프로젝트에 넣는 방식으로 바꾼다.
 
@@ -21,6 +21,7 @@ tags: [ai-systems, rag, harness-engineering, study-roadmap]
 - [목표와 현재 조건](#목표와-현재-조건)
 - [로드맵의 순서](#로드맵의-순서)
 - [첫 3개월 상세 계획](#첫-3개월-상세-계획)
+- [학습 주제와 증거](#학습-주제와-증거)
 - [3개월 이후 단계별 로드맵](#3개월-이후-단계별-로드맵)
 - [공부 방식](#공부-방식)
 - [공부 방식이 바뀌었는지 확인하는 체크리스트](#공부-방식이-바뀌었는지-확인하는-체크리스트)
@@ -482,6 +483,18 @@ HNSW의 수학적 세부 구현이나 대규모 성능 튜닝으로 확장하지
 - 검색, 모델, 오픈소스를 동일 입력과 기준으로 비교했다.
 - Codex가 만든 코드를 읽고 한 요청의 흐름을 직접 추적했다.
 - 새 도구를 발견해도 현재 블록과 관계없으면 보류 목록에 남겼다.
+
+## 학습 주제와 증거
+
+각 증거는 한 곳에만 1차 소속을 둔다. 다른 블록과 로드맵에서 필요한 경우에는 같은 문서를 복사하지 않고 링크로 참조한다.
+
+### 1블록 → RAG 전체 경로 → 데이터 준비·검색·근거 검증
+
+- [law-rag 로드맵 1블록 점검: 초기 개념 게이트, 구현 진도, 파이프라인 결정과 학습 증거](../learning-evidence/2026-08-11-law-rag-roadmap-block-1-review.md) — **1차 학습증거**. 초기 RAG 설명, 데이터 준비·검색·근거 검증의 정정, 현재 구현 판단을 통합한다. 판정은 `부분 충족`이다.
+
+### 4블록 → 작은 오픈소스 실행 경로 읽기 → LangGraph·LangChain 코드 읽기
+
+- [agent-service-toolkit 코드 읽기](../ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md)와 [학습증거](../learning-evidence/2026-08-11-langgraph-langchain-code-reading.md)는 에이전트 프레임워크 학습 로드맵의 `LangGraph → 실행 경로 코드 읽기`가 **1차 소속**이다. 이 블록에서는 축소 재구현 전의 코드 읽기 참조로만 사용하며, 4블록 통과 증거로 중복 판정하지 않는다.
 
 ## 3개월 이후 단계별 로드맵
 

@@ -3,8 +3,8 @@ title: "에이전트 프레임워크 학습 로드맵: Function Calling에서 �
 description: "지원 포지션이 요구하는 LangChain·LangGraph 역량을 기준으로, 에이전트 프레임워크를 어떤 순서로 왜 그 순서로 익힐지 정리한 단계별 계획"
 author: yjs000
 published: 2026-08-11
-updated: 2026-08-11
-reading_time: 약 5분
+updated: 2026-08-12
+reading_time: 약 3분
 tags: [langgraph, langchain, agentic-rag, multi-agent, study-roadmap]
 ---
 
@@ -12,7 +12,7 @@ tags: [langgraph, langchain, agentic-rag, multi-agent, study-roadmap]
 
 | 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
 |---|---|---|---|
-| yjs000 | 2026-08-11 | 약 5분 | LangGraph · LangChain · Agentic RAG · Multi-Agent · Study Roadmap |
+| yjs000 | 게시 2026-08-11 · 수정 2026-08-12 | 약 3분 | LangGraph · LangChain · Agentic RAG · Multi-Agent · Study Roadmap |
 
 같은 그래프 문법으로 안전 게이트, 도구 루프, human-in-the-loop, 다중 에이전트까지 표현되는 걸 [agent-service-toolkit 코드 읽기](../ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md)에서 확인한 뒤, 다음 질문이 남았다. 이 라이브러리들을 처음부터 배운다면 어떤 순서가 맞는가.
 
@@ -22,6 +22,7 @@ tags: [langgraph, langchain, agentic-rag, multi-agent, study-roadmap]
 - [학습 순서](#학습-순서)
 - [왜 LangGraph를 가장 깊게 보는가](#왜-langgraph를-가장-깊게-보는가)
 - [단계별 통과 조건](#단계별-통과-조건)
+- [학습 주제와 증거](#학습-주제와-증거)
 - [한계와 미검증 가설](#한계와-미검증-가설)
 - [결론과 다음 검증](#결론과-다음-검증)
 - [참고 자료](#참고-자료)
@@ -71,6 +72,15 @@ Function Calling / Tool Calling
 - **4단계**: 3단계와 동일한 과제를 프레임워크 없이 최소 구현하고, 두 구현의 코드량·재시도 로직 표현 방식·실패 처리 차이를 표로 비교한다.
 - **5단계**: 최소 두 가지 오케스트레이션 방식(직접 조건부 엣지 vs. 위임형 supervisor)으로 같은 멀티에이전트 과제를 풀어보고 차이를 설명한다.
 - **6단계**: LangGraph로 이미 통과한 과제를 CrewAI·Agents SDK·ADK 중 하나로 재구현해 같은 평가 기준으로 비교한다.
+
+## 학습 주제와 증거
+
+### LangGraph → 실행 경로 코드 읽기
+
+- [LangGraph·LangChain 실전 코드 읽기](../ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md) — **1차 관련 아티클**. agent-service-toolkit의 실제 파일·함수·상태를 따라간 코드 읽기다.
+- [LangGraph·LangChain 코드 읽기 학습증거](../learning-evidence/2026-08-11-langgraph-langchain-code-reading.md) — **1차 학습증거**. 아티클의 질문 원문, 판정, 기억 기준과 다음 검증을 보존한다. 증거 수준은 `개념 설명`이며, 이 단계의 독립 실험 통과를 뜻하지 않는다.
+
+AI 시스템 학습 로드맵의 4블록은 이 기록을 참조할 수 있지만, 본문과 판정은 이 위치에만 둔다.
 
 ## 한계와 미검증 가설
 

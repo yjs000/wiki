@@ -3,8 +3,8 @@ title: "LangGraph·LangChain 실전 코드 읽기: agent-service-toolkit 진입�
 description: "agent-service-toolkit의 진입점부터 research-assistant·rag-assistant 그래프, RAG 인제스천 파이프라인까지 따라가며 LangGraph·LangChain 역할 구분과 tool 설계 판단을 코드 근거로 정리한다."
 author: yjs000
 published: 2026-08-11
-updated: 2026-08-11
-reading_time: 약 36분
+updated: 2026-08-12
+reading_time: 약 12분
 tags: [langgraph, langchain, agent-service-toolkit, code-reading, rag]
 ---
 
@@ -12,9 +12,11 @@ tags: [langgraph, langchain, agent-service-toolkit, code-reading, rag]
 
 | 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
 |---|---|---|---|
-| yjs000 | 2026-08-11 | 약 36분 | LangGraph · LangChain · RAG · Code Reading |
+| yjs000 | 게시 2026-08-11 · 수정 2026-08-12 | 약 12분 | LangGraph · LangChain · RAG · Code Reading |
 
 > "LangGraph를 쓴다"는 문장은 그래프 정의 하나만 보면 끝나는 이야기가 아니었다. 진입점부터 따라가 보면 그래프는 등록·조립·메모리 부착·스트리밍 변환까지 여러 파일에 걸쳐 조립되는 하나의 실행 파이프라인이었고, 같은 진입점 구조 위에 research-assistant와 rag-assistant처럼 성격이 다른 워크플로우가 나란히 얹혀 있었다.
+
+학습 계획 위치: [에이전트 프레임워크 학습 로드맵](../learning-roadmaps/agent-framework-study-roadmap.md) → LangGraph → 실행 경로 코드 읽기. 이 글에서 나온 학습자 원문과 판정은 [별도 학습증거](../learning-evidence/2026-08-11-langgraph-langchain-code-reading.md)에 기록하며, AI 시스템 로드맵 4블록은 이 위치를 참조만 한다.
 
 ## 목차
 

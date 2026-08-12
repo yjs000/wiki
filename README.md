@@ -6,7 +6,7 @@
 
 ### 학습 계획
 
-목표까지의 학습 순서와 단계별 실행 계획입니다.
+학습 목표는 아래 카테고리에서 시작해 `로드맵 → 주제 → 세부 주제 → 학습증거` 순서로 탐색합니다.
 
 - [RAG에서 독립적인 AI 시스템 설계까지: 3년 학습 로드맵](docs/learning-roadmaps/ai-systems-study-roadmap.md)
 - [에이전트 프레임워크 학습 로드맵: Function Calling에서 프레임워크 비교까지](docs/learning-roadmaps/agent-framework-study-roadmap.md)
@@ -17,6 +17,7 @@
 
 - [실습·검증 기록 작성 규칙과 전체 목록](docs/learning-evidence/README.md)
 - [law-rag 로드맵 1블록 점검: 초기 개념 게이트, 구현 진도, 파이프라인 결정과 학습 증거](docs/learning-evidence/2026-08-11-law-rag-roadmap-block-1-review.md)
+- [LangGraph·LangChain 코드 읽기: 질문 원문과 개념 설명 증거](docs/learning-evidence/2026-08-11-langgraph-langchain-code-reading.md)
 
 ### 학습 목표
 
