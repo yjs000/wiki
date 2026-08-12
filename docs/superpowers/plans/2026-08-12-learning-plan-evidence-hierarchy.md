@@ -111,7 +111,7 @@ Run: `git diff --check && git diff --name-only`
 
 Expected: 공백 오류가 없고, 변경은 규칙·로드맵·관련 아티클·학습증거·설계·계획 문서에 한정된다.
 
-- [ ] **Step 3: 커밋하고 푸시한다**
+- [x] **Step 3: 커밋하고 푸시한다**
 
 Run: `git add AGENTS.md docs/learning-evidence docs/learning-roadmaps docs/ai-agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md docs/superpowers/specs/2026-08-12-learning-plan-evidence-hierarchy-design.md docs/superpowers/plans/2026-08-12-learning-plan-evidence-hierarchy.md && git commit -m "docs: organize learning plans and evidence" && git push origin main`
 
