@@ -79,7 +79,7 @@ Run: `git diff --check && git diff -- docs/learning-evidence/2026-07-22-rag-pipe
 
 Expected: 공백 오류가 없고, 변경은 두 학습증거 문서와 계획 문서에만 한정된다.
 
-- [ ] **Step 3: 커밋하고 푸시한다**
+- [x] **Step 3: 커밋하고 푸시한다**
 
 Run: `git add docs/superpowers/plans/2026-08-12-rag-learning-evidence-consolidation.md docs/learning-evidence/2026-07-22-rag-pipeline-concept-gate.md docs/learning-evidence/2026-08-11-law-rag-roadmap-block-1-review.md && git commit -m "docs: consolidate rag learning evidence" && git push origin main`
 
