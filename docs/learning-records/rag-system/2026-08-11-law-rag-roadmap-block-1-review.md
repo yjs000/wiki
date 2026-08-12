@@ -31,7 +31,7 @@ tags: [law-rag, learning-evidence, study-roadmap, retrieval, grounding, evaluati
 
 ## 기록의 범위와 증거 수준
 
-이 글은 [RAG 전체 경로 개념 게이트](2026-07-22-rag-pipeline-concept-gate.md)의 초기 원문과 정정, 그리고 그 개념을 실제 질문 라우팅·검색·생성·검증 경로에 적용하며 내린 결정을 통합한 기록이다.
+이 글은 2026-07-22 초기 RAG 개념 게이트의 학습자 원문과 정정, 그리고 그 개념을 실제 질문 라우팅·검색·생성·검증 경로에 적용하며 내린 결정을 통합한 기록이다.
 
 - **학습자 원문:** 2026-08-12에 질문 경로를 다시 설명한 원문을 추가했다. 맞춤법과 용어를 고치지 않고 그대로 보존하며, AI의 정리는 별도 판정으로 분리한다.
 - **학습 계획 위치:** [학습계획 → RAG 시스템](../../learning-plans/rag-system/README.md) → 1블록 → RAG 전체 경로 → 데이터 준비·검색·근거 검증
@@ -288,19 +288,18 @@ E-10은 D-10 문맥으로 실제 NVIDIA 호출을 수행했다. 라우팅은 10�
 
 ## 다음 검증
 
-다음 작업은 새 기능이나 에이전트 프레임워크를 추가하는 일이 아니라, 1블록의 증거를 닫는 일이다.
+이 기록 시점의 다음 작업은 새 기능이나 에이전트 프레임워크를 추가하는 일이 아니라, 1블록의 증거를 닫는 일이었다.
 
 1. 로드맵 범주에 맞는 대표 질문 20개를 고정하고, 검색 성공·문맥 구성·답변 충실도·출처 정확성·답변 거부를 각각 수동 판정한다.
 2. 그 과정에서 나온 5개 실패를 입력, corpus, 검색, 문맥, 생성, 표시 중 어느 경계의 문제인지 분류한다.
 3. 다음 검색 실험에서 확인할 가설 3개를 작성한다. 가설은 "hybrid가 더 좋다" 같은 결론이 아니라, 같은 입력·지표·채택 조건을 가진 질문이어야 한다.
 4. **기록 완료(2026-08-12):** 학습자가 현재 질문 경로를 다시 설명하고, 기존 개념 게이트 이후 이해한 부분과 정정할 경계를 기록했다.
 
-앞의 세 증거와 교정된 10분 설명이 생긴 뒤에야 1블록을 완료로 바꾸고, 2블록의 검색 방식 비교를 시작한다. LangGraph·LangChain과 같은 에이전트 프레임워크는 현재 부족한 증거를 해결하지 않으므로 이 순서에서 앞당기지 않는다.
+앞의 세 증거와 교정된 10분 설명이 생긴 뒤에야 1블록을 완료로 바꾸고, 2블록의 검색 방식 비교를 시작한다는 것이 당시의 판정이었다. 이후 학습자는 [law-rag 현재 기준점과 프레임워크 확장 계획](2026-08-12-law-rag-current-state-and-framework-expansion.md)에서 LlamaIndex·LangChain·LangGraph의 실행 경로 분석을 다음 계획으로 정했다. 이 변경은 이 문서의 `부분 충족` 판정을 소급해 완료로 바꾸지 않는다.
 
 ## 확인한 자료
 
 - [RAG 시스템 학습계획](../../learning-plans/rag-system/README.md) — 1~4블록의 달성 조건
-- [RAG 전체 경로 개념 게이트](2026-07-22-rag-pipeline-concept-gate.md) — 통합 전 원본의 URL을 보존하는 안내 문서
 - [실험 A 완료 계획](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/completed/0016-experiment-a-plain-text-chunking.md) — 조문 청킹 관찰
 - [실험 B 완료 계획](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/completed/0017-experiment-b-sentence-embeddings.md) — 임베딩·코사인 관찰
 - [실험 C 완료 계획](https://github.com/yjs000/law-rag/blob/0f05137ebae8260cf822ccb8b41761134442794d/docs/exec-plans/completed/0019-experiment-c-retrieval-observability.md) — dense 기준선과 고정 평가

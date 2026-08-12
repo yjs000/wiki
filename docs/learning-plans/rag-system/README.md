@@ -60,6 +60,12 @@ tags: [ai-systems, rag, harness-engineering, study-roadmap]
 4. [ ] **GitHub Issues와 Symphony로 코딩 작업을 실행한다** — 작은 저장소에서 격리, 재시도, 상태 전이와 PR 검증을 직접 확인한다.
 5. [ ] **Discord, Hermes, Symphony를 역할이 겹치지 않게 연결한다** — Hermes는 요청·판단·결과 설명을, Symphony는 Issue dispatch와 Codex 실행을 담당한다.
 
+### 현재 적용 기준점과 다음 계획
+
+- **현재 기준점:** [law-rag](https://github.com/yjs000/law-rag)는 법령 원문·검색·생성·근거 검증의 고정 파이프라인을 적용한 프로젝트다. 이는 RAG 학습 전체의 완료 선언이 아니라, 다음 비교와 확장을 위한 현재 기준점이다. [2026-08-12 기록](../../learning-records/rag-system/2026-08-12-law-rag-current-state-and-framework-expansion.md)에 학습자 원문과 판단을 남긴다.
+- **다음 계획:** LlamaIndex, LangChain, LangGraph를 활용한 오픈소스 또는 최소 예제에서 한 요청의 실행 경로를 분석한다. 분석 뒤에만 law-rag에 필요한 확장 한 가지를 선택한다.
+- **도입 원칙:** 세 프레임워크를 동시에 도입하지 않는다. LlamaIndex는 데이터·인덱싱 경계, LangChain은 모델·도구 호출 경계, LangGraph는 상태·분기·재시도 경계를 각각 비교하고 현재 고정 파이프라인에서 실제로 부족한 경계만 채택한다.
+
 ### 현재 위치
 
 현재는 AI 오픈소스 생태계에 대한 관심과 문제의식은 높지만, 구현을 코드 기준으로 이해하는 능력은 시작 단계다.
@@ -397,11 +403,13 @@ HNSW의 수학적 세부 구현이나 대규모 성능 튜닝으로 확장하지
 - “더 똑똑해 보인다”가 아닌 수치와 실패 사례로 선택을 설명한다.
 - 모델과 하네스의 차이를 구분한다. 같은 모델도 도구, 컨텍스트, 검증 루프에 따라 결과가 달라질 수 있음을 사례로 설명한다.
 
-### 4블록: 2026년 9월 23일~10월 13일 — 작은 오픈소스의 한 실행 경로 읽기
+### 4블록: 2026년 9월 23일~10월 13일 — LlamaIndex·LangChain·LangGraph 후보를 포함한 작은 오픈소스의 한 실행 경로 읽기
 
 **사용 가능 시간:** 약 12시간
 
 **핵심 목표:** 오픈소스 전체를 이해하려 하지 않고, 현재 RAG와 직접 연결되는 작은 저장소 또는 제한된 모듈 하나의 주요 실행 경로를 추적한다.
+
+LlamaIndex, LangChain, LangGraph를 사용한 오픈소스나 최소 예제는 우선 분석 후보로 둔다. 단, 프레임워크 이름이 아니라 law-rag에 필요한 데이터·도구·상태 경계와 직접 연결되는지로 대상을 고른다.
 
 #### 대상 선정 기준
 
@@ -495,6 +503,7 @@ HNSW의 수학적 세부 구현이나 대규모 성능 튜닝으로 확장하지
 ### 4블록 → 작은 오픈소스 실행 경로 읽기 → LangGraph·LangChain 코드 읽기
 
 - [agent-service-toolkit 코드 읽기](../../readings/agent-systems/agent-service-toolkit-langgraph-langchain-walkthrough.md)와 [학습증거](../../learning-records/agent-framework/2026-08-11-langgraph-langchain-code-reading.md)는 에이전트 프레임워크 학습계획의 `LangGraph → 실행 경로 코드 읽기`가 **1차 소속**이다. 이 블록에서는 축소 재구현 전의 코드 읽기 참조로만 사용하며, 4블록 통과 증거로 중복 판정하지 않는다.
+- [law-rag 현재 기준점과 프레임워크 확장 계획](../../learning-records/rag-system/2026-08-12-law-rag-current-state-and-framework-expansion.md)은 LlamaIndex·LangChain·LangGraph 분석 후 law-rag에 한 경계만 확장하기로 한 **1차 학습증거**다.
 
 ## 3개월 이후 단계별 로드맵
 
