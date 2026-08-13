@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-08-13T00:06:44.106763+00:00",
+  "items": [
+    {
+      "evidence_id": "2026-07-22-rag-pipeline-concept-gate",
+      "evidence_level": "concept_explanation",
+      "missing": [
+        "chunking_purpose",
+        "embedding_compares_question_and_chunks",
+        "project_code_test_evidence",
+        "법령-청크-10개에서-질문-하나를-검색했을-때-기대한-근거가-상위-3개-안에-들어오는가",
+        "제7조-제1항-전체-청크와-더-잘게-나눈-청크를-같은-질문으로-비교하면-어느-쪽이-근거를-더-안정적으로-회수하는가",
+        "조문-또는-제목-본문-규칙으로-실제-텍스트를-나누면-제7조의-조-항-호-경계가-누락-없이-보존되는가"
+      ],
+      "next_questions": [
+        "조문 또는 제목+본문 규칙으로 실제 텍스트를 나누면 제7조의 조·항·호 경계가 누락 없이 보존되는가?",
+        "의미가 가까운 문장과 단어만 겹치는 문장의 임베딩 유사도는 예상한 순서로 나오는가?",
+        "법령 청크 10개에서 질문 하나를 검색했을 때 기대한 근거가 상위 3개 안에 들어오는가?",
+        "제7조 제1항 전체 청크와 더 잘게 나눈 청크를 같은 질문으로 비교하면 어느 쪽이 근거를 더 안정적으로 회수하는가?"
+      ],
+      "partial": [
+        "chunking_purpose",
+        "metadata_for_citation"
+      ],
+      "passed": [
+        "retrieval_generation_separate_eval"
+      ],
+      "path": "docs/learning-evidence/2026-07-22-rag-pipeline-concept-gate.md",
+      "source_hash": "dcd5c7b328abf679974a94d744b356c123e262c33b55d14099a6df60922499af",
+      "stage": "RAG 데이터 흐름",
+      "stage_order": 1,
+      "title": "RAG 전체 경로 개념 게이트: 첫 설명과 정정 기록",
+      "topics": [
+        "chunking",
+        "embedding",
+        "learning-evidence",
+        "rag",
+        "retrieval"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "source": "tools/question_bank/build_question_bank.py"
+}

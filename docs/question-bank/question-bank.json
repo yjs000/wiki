@@ -1,0 +1,523 @@
+{
+  "generated_at": "2026-08-13T00:06:44.106763+00:00",
+  "items": [
+    {
+      "axis": "RAG 데이터 흐름",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "rag.chunking.boundary.001",
+      "partial_by": [],
+      "question": "법령 검색에서 조문 단위 청킹은 고정 길이 청킹보다 어떤 질문에서 유리한가?",
+      "requires": [
+        "independent_chunking_experiment"
+      ],
+      "stage_order": 1,
+      "status": "uncovered",
+      "topic": "chunking",
+      "type": "comparison",
+      "weight": 5
+    },
+    {
+      "axis": "RAG 데이터 흐름",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "rag.embedding.vector-use.001",
+      "partial_by": [],
+      "question": "질문 벡터는 어디까지 쓰이고 모델 프롬프트에는 무엇이 들어가는가?",
+      "requires": [
+        "independent_embedding_experiment"
+      ],
+      "stage_order": 1,
+      "status": "uncovered",
+      "topic": "embedding",
+      "type": "concept",
+      "weight": 5
+    },
+    {
+      "axis": "RAG 데이터 흐름",
+      "blocked_by": [],
+      "covered_by": [
+        "2026-07-22-rag-pipeline-concept-gate"
+      ],
+      "id": "rag.retrieval.generation-split.001",
+      "partial_by": [],
+      "question": "검색은 성공했는데 답변이 틀리는 경우는 어떤 패턴인가?",
+      "requires": [
+        "retrieval_generation_separate_eval"
+      ],
+      "stage_order": 1,
+      "status": "passed",
+      "topic": "retrieval",
+      "type": "failure",
+      "weight": 0
+    },
+    {
+      "axis": "RAG 데이터 흐름",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "rag.metadata.citation.001",
+      "partial_by": [
+        "2026-07-22-rag-pipeline-concept-gate"
+      ],
+      "question": "조문 번호와 제목 메타데이터는 계층 표현보다 어떤 검증 문제를 해결하는가?",
+      "requires": [
+        "metadata_for_citation"
+      ],
+      "stage_order": 1,
+      "status": "partial",
+      "topic": "metadata",
+      "type": "concept",
+      "weight": 4
+    },
+    {
+      "axis": "RAG 데이터 흐름",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "rag.context.prompt.001",
+      "partial_by": [],
+      "question": "검색된 청크는 어떤 순서와 형식으로 프롬프트에 들어갈 때 근거가 덜 왜곡되는가?",
+      "requires": [
+        "project_code_test_evidence"
+      ],
+      "stage_order": 1,
+      "status": "uncovered",
+      "topic": "context",
+      "type": "application",
+      "weight": 4
+    },
+    {
+      "axis": "검색 알고리즘",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "search.keyword-vs-vector.001",
+      "partial_by": [],
+      "question": "조문 번호가 포함된 질문은 BM25와 벡터 검색 중 어디서 더 잘 잡히는가?",
+      "requires": [
+        "bm25_vector_same_dataset"
+      ],
+      "stage_order": 2,
+      "status": "uncovered",
+      "topic": "search",
+      "type": "comparison",
+      "weight": 5
+    },
+    {
+      "axis": "검색 알고리즘",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "search.semantic.001",
+      "partial_by": [],
+      "question": "일상어 질문은 벡터 검색이 실제 근거 조문을 top-3 안에 넣는가?",
+      "requires": [
+        "vector_search_eval"
+      ],
+      "stage_order": 2,
+      "status": "uncovered",
+      "topic": "search",
+      "type": "experiment",
+      "weight": 5
+    },
+    {
+      "axis": "검색 알고리즘",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "search.hybrid.001",
+      "partial_by": [],
+      "question": "하이브리드 검색은 단순 순위 결합만으로 현재 질문셋에서 좋아지는가?",
+      "requires": [
+        "hybrid_search_eval"
+      ],
+      "stage_order": 2,
+      "status": "uncovered",
+      "topic": "hybrid-search",
+      "type": "experiment",
+      "weight": 4
+    },
+    {
+      "axis": "검색 알고리즘",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "search.metric.recall.001",
+      "partial_by": [],
+      "question": "recall@k가 높아졌는데 답변 품질이 그대로일 수 있는 이유는 무엇인가?",
+      "requires": [
+        "recall_at_k_calculation"
+      ],
+      "stage_order": 2,
+      "status": "uncovered",
+      "topic": "metrics",
+      "type": "concept",
+      "weight": 4
+    },
+    {
+      "axis": "검색 알고리즘",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "search.reranker.need.001",
+      "partial_by": [],
+      "question": "리랭커는 현재 law-rag 질문셋에서 필요한가, 아니면 과한 복잡도인가?",
+      "requires": [
+        "reranker_comparison"
+      ],
+      "stage_order": 2,
+      "status": "uncovered",
+      "topic": "reranking",
+      "type": "decision",
+      "weight": 3
+    },
+    {
+      "axis": "모델 선택과 평가",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "model.groundedness.001",
+      "partial_by": [],
+      "question": "같은 검색 문맥을 줬을 때 모델별로 근거 밖 내용을 만드는 비율은 다른가?",
+      "requires": [
+        "model_groundedness_eval"
+      ],
+      "stage_order": 3,
+      "status": "uncovered",
+      "topic": "model-eval",
+      "type": "comparison",
+      "weight": 5
+    },
+    {
+      "axis": "모델 선택과 평가",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "model.abstention.001",
+      "partial_by": [],
+      "question": "답이 없는 질문에서 모델은 거부를 잘하는가, 아니면 그럴듯한 답을 만드는가?",
+      "requires": [
+        "abstention_eval"
+      ],
+      "stage_order": 3,
+      "status": "uncovered",
+      "topic": "model-eval",
+      "type": "failure",
+      "weight": 5
+    },
+    {
+      "axis": "모델 선택과 평가",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "model.cost-role.001",
+      "partial_by": [],
+      "question": "저비용 모델은 최종 답변보다 질문 분류나 요약에 더 적합한가?",
+      "requires": [
+        "cost_latency_quality_eval"
+      ],
+      "stage_order": 3,
+      "status": "uncovered",
+      "topic": "model-routing",
+      "type": "decision",
+      "weight": 4
+    },
+    {
+      "axis": "모델 선택과 평가",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "model.korean-quality.001",
+      "partial_by": [],
+      "question": "한국어 법령 설명 품질과 근거 충실도는 같은 지표인가?",
+      "requires": [
+        "korean_quality_eval"
+      ],
+      "stage_order": 3,
+      "status": "uncovered",
+      "topic": "model-eval",
+      "type": "concept",
+      "weight": 4
+    },
+    {
+      "axis": "모델 선택과 평가",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "model.selection.001",
+      "partial_by": [],
+      "question": "비용·지연·품질을 같이 보면 어떤 모델 조합이 현재 law-rag에 맞는가?",
+      "requires": [
+        "model_selection_document"
+      ],
+      "stage_order": 3,
+      "status": "uncovered",
+      "topic": "model-selection",
+      "type": "decision",
+      "weight": 4
+    },
+    {
+      "axis": "오픈소스 읽기와 축소 재구현",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "oss.entrypoint.001",
+      "partial_by": [],
+      "question": "이 저장소에서 사용자 입력은 실제로 어느 함수로 들어오는가?",
+      "requires": [
+        "entrypoint_trace"
+      ],
+      "stage_order": 4,
+      "status": "uncovered",
+      "topic": "open-source-reading",
+      "type": "code-reading",
+      "weight": 5
+    },
+    {
+      "axis": "오픈소스 읽기와 축소 재구현",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "oss.readme-vs-code.001",
+      "partial_by": [],
+      "question": "README의 아키텍처 설명과 실제 호출 흐름은 일치하는가?",
+      "requires": [
+        "readme_code_comparison"
+      ],
+      "stage_order": 4,
+      "status": "uncovered",
+      "topic": "open-source-reading",
+      "type": "comparison",
+      "weight": 4
+    },
+    {
+      "axis": "오픈소스 읽기와 축소 재구현",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "oss.state-flow.001",
+      "partial_by": [],
+      "question": "설정 로딩, 상태 생성, 모델 호출, 결과 파싱은 어떤 파일에서 나뉘는가?",
+      "requires": [
+        "call_flow_trace"
+      ],
+      "stage_order": 4,
+      "status": "uncovered",
+      "topic": "open-source-reading",
+      "type": "code-reading",
+      "weight": 5
+    },
+    {
+      "axis": "오픈소스 읽기와 축소 재구현",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "oss.abstraction-cost.001",
+      "partial_by": [],
+      "question": "원본 구현이 추가한 추상화는 어떤 실패나 확장 요구를 해결하는가?",
+      "requires": [
+        "minimal_reimplementation"
+      ],
+      "stage_order": 4,
+      "status": "uncovered",
+      "topic": "open-source-reading",
+      "type": "decision",
+      "weight": 4
+    },
+    {
+      "axis": "오픈소스 읽기와 축소 재구현",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "oss.minimal-rebuild.001",
+      "partial_by": [],
+      "question": "같은 기능을 100줄 이하로 줄이면 무엇이 사라지고 무엇이 남는가?",
+      "requires": [
+        "minimal_reimplementation"
+      ],
+      "stage_order": 4,
+      "status": "uncovered",
+      "topic": "open-source-reading",
+      "type": "experiment",
+      "weight": 4
+    },
+    {
+      "axis": "하네스 엔지니어링",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "harness.context.001",
+      "partial_by": [],
+      "question": "Codex에게 보여 줄 컨텍스트를 줄이면 어떤 실패가 늘고 어떤 비용이 줄어드는가?",
+      "requires": [
+        "harness_context_experiment"
+      ],
+      "stage_order": 5,
+      "status": "uncovered",
+      "topic": "harness",
+      "type": "experiment",
+      "weight": 5
+    },
+    {
+      "axis": "하네스 엔지니어링",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "harness.verification.001",
+      "partial_by": [],
+      "question": "완료 조건을 테스트 명령으로 고정하면 부분 성공 보고가 줄어드는가?",
+      "requires": [
+        "verification_loop_evidence"
+      ],
+      "stage_order": 5,
+      "status": "uncovered",
+      "topic": "harness",
+      "type": "experiment",
+      "weight": 5
+    },
+    {
+      "axis": "하네스 엔지니어링",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "harness.failure-feedback.001",
+      "partial_by": [],
+      "question": "실패 로그를 다음 시도에 넘길 때 어떤 정보가 재시도 품질을 바꾸는가?",
+      "requires": [
+        "failure_feedback_loop"
+      ],
+      "stage_order": 5,
+      "status": "uncovered",
+      "topic": "harness",
+      "type": "failure",
+      "weight": 4
+    },
+    {
+      "axis": "하네스 엔지니어링",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "harness.approval.001",
+      "partial_by": [],
+      "question": "사람 승인이 필요한 경계는 파일 변경, 배포, 데이터 변경 중 어디에 둬야 하는가?",
+      "requires": [
+        "approval_boundary_evidence"
+      ],
+      "stage_order": 5,
+      "status": "uncovered",
+      "topic": "harness",
+      "type": "decision",
+      "weight": 4
+    },
+    {
+      "axis": "단일 에이전트 런타임",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "runtime.tool-call-loop.001",
+      "partial_by": [],
+      "question": "최소 에이전트 루프에서 모델의 툴 호출은 어떤 메시지 상태를 거쳐 재호출되는가?",
+      "requires": [
+        "minimal_tool_loop"
+      ],
+      "stage_order": 6,
+      "status": "uncovered",
+      "topic": "agent-runtime",
+      "type": "concept",
+      "weight": 5
+    },
+    {
+      "axis": "단일 에이전트 런타임",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "runtime.state.001",
+      "partial_by": [],
+      "question": "상태를 메모리에만 두는 루프는 재시작 때 어떤 정보를 잃는가?",
+      "requires": [
+        "state_persistence_experiment"
+      ],
+      "stage_order": 6,
+      "status": "uncovered",
+      "topic": "agent-runtime",
+      "type": "failure",
+      "weight": 5
+    },
+    {
+      "axis": "단일 에이전트 런타임",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "runtime.retry.001",
+      "partial_by": [],
+      "question": "재시도 가능한 실패와 중단해야 하는 실패는 최소 루프에서 어떻게 구분하는가?",
+      "requires": [
+        "retry_boundary_experiment"
+      ],
+      "stage_order": 6,
+      "status": "uncovered",
+      "topic": "agent-runtime",
+      "type": "decision",
+      "weight": 4
+    },
+    {
+      "axis": "지속 실행 시스템",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "durable.queue.001",
+      "partial_by": [],
+      "question": "Discord나 GitHub 이벤트를 작업 큐에 넣을 때 중복 이벤트는 어떻게 막는가?",
+      "requires": [
+        "queue_idempotency_experiment"
+      ],
+      "stage_order": 7,
+      "status": "uncovered",
+      "topic": "durable-execution",
+      "type": "concept",
+      "weight": 5
+    },
+    {
+      "axis": "지속 실행 시스템",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "durable.worker-restart.001",
+      "partial_by": [],
+      "question": "워커가 중단돼도 작업 상태가 사라지지 않으려면 어떤 체크포인트가 필요한가?",
+      "requires": [
+        "worker_restart_experiment"
+      ],
+      "stage_order": 7,
+      "status": "uncovered",
+      "topic": "durable-execution",
+      "type": "experiment",
+      "weight": 5
+    },
+    {
+      "axis": "지속 실행 시스템",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "durable.approval.001",
+      "partial_by": [],
+      "question": "승인 전 외부 반영을 막으려면 상태 머신의 어느 전이가 잠겨야 하는가?",
+      "requires": [
+        "approval_state_machine"
+      ],
+      "stage_order": 7,
+      "status": "uncovered",
+      "topic": "durable-execution",
+      "type": "decision",
+      "weight": 4
+    },
+    {
+      "axis": "멀티에이전트와 독립 설계",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "multiagent.parallel-vs-role.001",
+      "partial_by": [],
+      "question": "멀티에이전트 구조가 실제 병렬 실행인지 프롬프트 역할 분담인지 어떻게 구분하는가?",
+      "requires": [
+        "multiagent_execution_trace"
+      ],
+      "stage_order": 8,
+      "status": "uncovered",
+      "topic": "multi-agent",
+      "type": "comparison",
+      "weight": 5
+    },
+    {
+      "axis": "멀티에이전트와 독립 설계",
+      "blocked_by": [],
+      "covered_by": [],
+      "id": "design.framework-choice.001",
+      "partial_by": [],
+      "question": "요구사항 하나를 받았을 때 프레임워크 도입과 직접 구현의 경계는 어떻게 결정하는가?",
+      "requires": [
+        "framework_choice_comparison"
+      ],
+      "stage_order": 8,
+      "status": "uncovered",
+      "topic": "system-design",
+      "type": "decision",
+      "weight": 5
+    }
+  ],
+  "schema_version": 1,
+  "selection_policy": "Sort by stage_order ascending, filter non-passed, take top 3 by weight within earliest stage, choose random."
+}
