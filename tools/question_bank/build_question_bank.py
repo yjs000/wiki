@@ -10,13 +10,12 @@ import argparse
 import hashlib
 import json
 import re
-from dataclasses import dataclass, asdict
-from datetime import datetime, timezone
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
-EVIDENCE_DIR = ROOT / "docs" / "learning-evidence"
+EVIDENCE_DIRS = [ROOT / "docs" / "learning-evidence", ROOT / "docs" / "learning-records"]
 ROADMAP_PATH = ROOT / "docs" / "learning-roadmaps" / "ai-systems-study-roadmap.md"
 OUT_DIR = ROOT / "docs" / "question-bank"
 EVIDENCE_INDEX_PATH = OUT_DIR / "evidence-index.json"
@@ -320,10 +319,14 @@ def main() -> int:
     parser.add_argument("--changed-only", action="store_true", help="Reserved for future diff-scoped LLM enrichment; deterministic build still writes full compact index.")
     args = parser.parse_args()
 
-    evidence_files = sorted(p for p in EVIDENCE_DIR.glob("*.md") if p.name != "README.md")
+    evidence_files = []
+    for evidence_dir in EVIDENCE_DIRS:
+        if evidence_dir.exists():
+            evidence_files.extend(p for p in evidence_dir.rglob("*.md") if p.name != "README.md")
+    evidence_files = sorted(set(evidence_files))
     evidence = [build_evidence_entry(path) for path in evidence_files]
     questions = build_question_bank(evidence)
-    generated_at = datetime.now(timezone.utc).isoformat()
+    generated_at = "deterministic"
     evidence_payload = {
         "schema_version": 1,
         "generated_at": generated_at,

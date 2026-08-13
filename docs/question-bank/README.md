@@ -4,7 +4,7 @@
 
 ## 파일
 
-- `evidence-index.json`: `docs/learning-evidence/*.md`에서 추출한 판정용 요약 색인입니다. 원문 보존용이 아니라 질문 선택용입니다.
+- `evidence-index.json`: `docs/learning-evidence/*.md`와 `docs/learning-records/**/*.md`에서 추출한 판정용 요약 색인입니다. 원문 보존용이 아니라 질문 선택용입니다.
 - `question-bank.json`: 로드맵 축별 질문 후보와 상태입니다.
 - `question-history.jsonl`: 실제로 뽑은 질문 기록입니다.
 

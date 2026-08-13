@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-13T00:06:44.106763+00:00",
+  "generated_at": "deterministic",
   "items": [
     {
       "axis": "RAG 데이터 흐름",
@@ -36,9 +36,7 @@
     {
       "axis": "RAG 데이터 흐름",
       "blocked_by": [],
-      "covered_by": [
-        "2026-07-22-rag-pipeline-concept-gate"
-      ],
+      "covered_by": [],
       "id": "rag.retrieval.generation-split.001",
       "partial_by": [],
       "question": "검색은 성공했는데 답변이 틀리는 경우는 어떤 패턴인가?",
@@ -46,28 +44,26 @@
         "retrieval_generation_separate_eval"
       ],
       "stage_order": 1,
-      "status": "passed",
+      "status": "uncovered",
       "topic": "retrieval",
       "type": "failure",
-      "weight": 0
+      "weight": 4
     },
     {
       "axis": "RAG 데이터 흐름",
       "blocked_by": [],
       "covered_by": [],
       "id": "rag.metadata.citation.001",
-      "partial_by": [
-        "2026-07-22-rag-pipeline-concept-gate"
-      ],
+      "partial_by": [],
       "question": "조문 번호와 제목 메타데이터는 계층 표현보다 어떤 검증 문제를 해결하는가?",
       "requires": [
         "metadata_for_citation"
       ],
       "stage_order": 1,
-      "status": "partial",
+      "status": "uncovered",
       "topic": "metadata",
       "type": "concept",
-      "weight": 4
+      "weight": 5
     },
     {
       "axis": "RAG 데이터 흐름",

@@ -1,41 +1,68 @@
 {
-  "generated_at": "2026-08-13T00:06:44.106763+00:00",
+  "generated_at": "deterministic",
   "items": [
     {
-      "evidence_id": "2026-07-22-rag-pipeline-concept-gate",
-      "evidence_level": "concept_explanation",
-      "missing": [
-        "chunking_purpose",
-        "embedding_compares_question_and_chunks",
-        "project_code_test_evidence",
-        "법령-청크-10개에서-질문-하나를-검색했을-때-기대한-근거가-상위-3개-안에-들어오는가",
-        "제7조-제1항-전체-청크와-더-잘게-나눈-청크를-같은-질문으로-비교하면-어느-쪽이-근거를-더-안정적으로-회수하는가",
-        "조문-또는-제목-본문-규칙으로-실제-텍스트를-나누면-제7조의-조-항-호-경계가-누락-없이-보존되는가"
-      ],
-      "next_questions": [
-        "조문 또는 제목+본문 규칙으로 실제 텍스트를 나누면 제7조의 조·항·호 경계가 누락 없이 보존되는가?",
-        "의미가 가까운 문장과 단어만 겹치는 문장의 임베딩 유사도는 예상한 순서로 나오는가?",
-        "법령 청크 10개에서 질문 하나를 검색했을 때 기대한 근거가 상위 3개 안에 들어오는가?",
-        "제7조 제1항 전체 청크와 더 잘게 나눈 청크를 같은 질문으로 비교하면 어느 쪽이 근거를 더 안정적으로 회수하는가?"
-      ],
-      "partial": [
-        "chunking_purpose",
-        "metadata_for_citation"
-      ],
-      "passed": [
-        "retrieval_generation_separate_eval"
-      ],
-      "path": "docs/learning-evidence/2026-07-22-rag-pipeline-concept-gate.md",
-      "source_hash": "dcd5c7b328abf679974a94d744b356c123e262c33b55d14099a6df60922499af",
+      "evidence_id": "2026-08-11-langgraph-langchain-code-reading",
+      "evidence_level": "independent_experiment",
+      "missing": [],
+      "next_questions": [],
+      "partial": [],
+      "passed": [],
+      "path": "docs/learning-records/agent-framework/2026-08-11-langgraph-langchain-code-reading.md",
+      "source_hash": "01e3c75f0965f12bc48a88420fcd1e605e7b72d36d8fce03c95ece6ff281a8eb",
       "stage": "RAG 데이터 흐름",
       "stage_order": 1,
-      "title": "RAG 전체 경로 개념 게이트: 첫 설명과 정정 기록",
+      "title": "LangGraph·LangChain 코드 읽기: 질문 원문과 개념 설명 증거",
       "topics": [
-        "chunking",
-        "embedding",
+        "agent-service-toolkit",
+        "code-reading",
+        "langchain",
+        "langgraph",
+        "learning-evidence",
+        "rag"
+      ]
+    },
+    {
+      "evidence_id": "2026-08-11-law-rag-roadmap-block-1-review",
+      "evidence_level": "project_application",
+      "missing": [],
+      "next_questions": [],
+      "partial": [],
+      "passed": [],
+      "path": "docs/learning-records/rag-system/2026-08-11-law-rag-roadmap-block-1-review.md",
+      "source_hash": "1490ccfef300c50baea0ae229dab09cd503dbc9f4ce149a97729c30c3dfe2d45",
+      "stage": "RAG 데이터 흐름",
+      "stage_order": 1,
+      "title": "law-rag 로드맵 1블록 점검: 구현 진도, 파이프라인 결정과 학습 증거",
+      "topics": [
+        "evaluation",
+        "grounding",
+        "law-rag",
         "learning-evidence",
         "rag",
-        "retrieval"
+        "retrieval",
+        "study-roadmap"
+      ]
+    },
+    {
+      "evidence_id": "2026-08-12-law-rag-current-state-and-framework-expansion",
+      "evidence_level": "project_application",
+      "missing": [],
+      "next_questions": [],
+      "partial": [],
+      "passed": [],
+      "path": "docs/learning-records/rag-system/2026-08-12-law-rag-current-state-and-framework-expansion.md",
+      "source_hash": "a3536c75aaa0e40c1e6efe1cb7a7b51c3a27aec6654c01398fa7db02ad76732f",
+      "stage": "RAG 데이터 흐름",
+      "stage_order": 1,
+      "title": "law-rag 현재 기준점과 프레임워크 확장 계획",
+      "topics": [
+        "langchain",
+        "langgraph",
+        "law-rag",
+        "learning-evidence",
+        "llamaindex",
+        "rag"
       ]
     }
   ],
