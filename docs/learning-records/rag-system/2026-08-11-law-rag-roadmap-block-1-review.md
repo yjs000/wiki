@@ -3,7 +3,7 @@ title: "law-rag 로드맵 1블록 점검: 구현 진도, 파이프라인 결정�
 description: "AI 시스템 학습 로드맵의 1블록 통과 조건과 law-rag의 질문 라우팅·검색·생성·근거 검증 결정을 대조해 구현 성과와 부족한 학습 증거를 구분한 기록"
 author: yjs000
 published: 2026-08-11
-updated: 2026-08-12
+updated: 2026-08-13
 reading_time: 약 10분
 tags: [law-rag, learning-evidence, study-roadmap, retrieval, grounding, evaluation]
 ---
@@ -12,7 +12,7 @@ tags: [law-rag, learning-evidence, study-roadmap, retrieval, grounding, evaluati
 
 | 작성자 | 게시·수정일 | 읽는 시간 | 태그 |
 |---|---|---|---|
-| yjs000 | 게시 2026-08-11 · 수정 2026-08-12 | 약 10분 | Law RAG · Learning Evidence · Study Roadmap · Retrieval · Grounding · Evaluation |
+| yjs000 | 게시 2026-08-11 · 수정 2026-08-13 | 약 10분 | Law RAG · Learning Evidence · Study Roadmap · Retrieval · Grounding · Evaluation |
 
 오늘은 [RAG 시스템 학습계획](../../learning-plans/rag-system/README.md)의 1블록 종료일이다. law-rag는 MVP를 넘어 검색·근거 검증·사전 라우팅까지 구현했지만, 구현량과 계획이 요구한 학습 증거는 같은 것이 아니다. 이 기록은 현재 질문 파이프라인의 결정까지 한곳에 모으되, 구현 성과와 학습 증거를 섞지 않고 현재 위치를 판정한다.
 
@@ -288,14 +288,9 @@ E-10은 D-10 문맥으로 실제 NVIDIA 호출을 수행했다. 라우팅은 10�
 
 ## 다음 검증
 
-이 기록 시점의 다음 작업은 새 기능이나 에이전트 프레임워크를 추가하는 일이 아니라, 1블록의 증거를 닫는 일이었다.
+이 기록 시점의 다음 작업은 새 기능이나 에이전트 프레임워크를 추가하는 일이 아니라, 1블록의 증거를 닫는 일이었다. **기록 완료(2026-08-12):** 학습자가 현재 질문 경로를 다시 설명하고, 기존 개념 게이트 이후 이해한 부분과 정정할 경계를 기록했다.
 
-1. 로드맵 범주에 맞는 대표 질문 20개를 고정하고, 검색 성공·문맥 구성·답변 충실도·출처 정확성·답변 거부를 각각 수동 판정한다.
-2. 그 과정에서 나온 5개 실패를 입력, corpus, 검색, 문맥, 생성, 표시 중 어느 경계의 문제인지 분류한다.
-3. 다음 검색 실험에서 확인할 가설 3개를 작성한다. 가설은 "hybrid가 더 좋다" 같은 결론이 아니라, 같은 입력·지표·채택 조건을 가진 질문이어야 한다.
-4. **기록 완료(2026-08-12):** 학습자가 현재 질문 경로를 다시 설명하고, 기존 개념 게이트 이후 이해한 부분과 정정할 경계를 기록했다.
-
-앞의 세 증거와 교정된 10분 설명이 생긴 뒤에야 1블록을 완료로 바꾸고, 2블록의 검색 방식 비교를 시작한다는 것이 당시의 판정이었다. 이후 학습자는 [law-rag 현재 기준점과 프레임워크 확장 계획](2026-08-12-law-rag-current-state-and-framework-expansion.md)에서 LlamaIndex·LangChain·LangGraph의 실행 경로 분석을 다음 계획으로 정했다. 이 변경은 이 문서의 `부분 충족` 판정을 소급해 완료로 바꾸지 않는다.
+남은 증거(대표 질문 20개 수동 판정, 실패 분류, 다음 가설 3개)와 교정된 10분 설명이 생긴 뒤에야 1블록을 완료로 바꾸고, 2블록의 검색 방식 비교를 시작한다는 것이 당시의 판정이었다. 이후 학습자는 [law-rag 현재 기준점과 프레임워크 확장 계획](2026-08-12-law-rag-current-state-and-framework-expansion.md)에서 LlamaIndex·LangChain·LangGraph의 실행 경로 분석을 다음 계획으로 정했다. 이 변경은 이 문서의 `부분 충족` 판정을 소급해 완료로 바꾸지 않는다.
 
 ## 확인한 자료
 
