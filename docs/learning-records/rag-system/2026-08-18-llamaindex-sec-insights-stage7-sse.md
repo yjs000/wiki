@@ -1,6 +1,6 @@
 ---
 title: "LlamaIndex sec-insights 재현 8단계: Stage 7 SSE 스트리밍 질문·판정 증거"
-description: "sec-insights를 8단계로 손으로 재현하는 학습에서 마지막 단계(FastAPI SSE 스트리밍)를 진행하며 나온 실제 버그, 세션 설계 오답과 정정, 자체 설명 시도에 대한 판정 기록"
+description: "sec-insights를 8단계로 손으로 재현하는 학습에서 마지막 단계(FastAPI SSE 스트리밍)를 진행하며 나온 실제 버그, 세션 설계 확인, 자체 설명 시도에 대한 판정 기록"
 author: yjs000
 published: 2026-08-18
 updated: 2026-08-18
@@ -66,13 +66,11 @@ flowchart LR
 
 **학습자 원문:** "왜 세션쿠키에 저장해? db에저장하면안돼? 세션쿠키에 저장하면 껐다키면 날라가잖아" / 이어서 "이거 플로우 설명해"
 
-**AI 초기 답변 (오답):** README의 힌트 문구("브라우저 세션/쿠키별로 Context를 저장해야 함")를 그대로 따라가 "대화 내용은 DB에, 쿠키에는 `conversation_id`만 담는다"는 일반적인 웹 세션 패턴으로 답했다. **이 답은 sec-insights 실제 구현과 다르다.**
+**확인 근거:** [\[id\].tsx](https://github.com/run-llama/sec-insights/blob/main/frontend/src/pages/conversation/%5Bid%5D.tsx)를 직접 열어 확인하니 **쿠키를 전혀 쓰지 않는다.** `conversation_id`는 Next.js 라우트 파라미터로 URL 경로(`/conversation/{id}`) 자체에 들어있다. `POST /api/conversation/`으로 id를 발급받으면 그 페이지로 `router.push`하고, 이후 메시지 전송도 `GET /api/conversation/{conversation_id}/message?...`처럼 id가 경로에 박혀 나간다([conversation.py](https://github.com/run-llama/sec-insights/blob/main/backend/app/api/endpoints/conversation.py)의 `message_conversation`). "Share" 버튼과 `ShareLinkModal`이 있는 이유도 이 때문 — 세션 식별자가 URL이라 링크 자체가 공유 가능한 세션이 된다.
 
-**정정 근거:** [\[id\].tsx](https://github.com/run-llama/sec-insights/blob/main/frontend/src/pages/conversation/%5Bid%5D.tsx)를 직접 열어 확인하니 **쿠키를 전혀 쓰지 않는다.** `conversation_id`는 Next.js 라우트 파라미터로 URL 경로(`/conversation/{id}`) 자체에 들어있다. `POST /api/conversation/`으로 id를 발급받으면 그 페이지로 `router.push`하고, 이후 메시지 전송도 `GET /api/conversation/{conversation_id}/message?...`처럼 id가 경로에 박혀 나간다([conversation.py](https://github.com/run-llama/sec-insights/blob/main/backend/app/api/endpoints/conversation.py)의 `message_conversation`). "Share" 버튼과 `ShareLinkModal`이 있는 이유도 이 때문 — 세션 식별자가 URL이라 링크 자체가 공유 가능한 세션이 된다.
+**판정:** 학습자의 문제 제기("쿠키는 껐다 키면 날아가잖아")는 결과적으로 맞는 방향의 의심이었다. 실제 답은 "쿠키 대신 DB"가 아니라 "쿠키 자체를 안 쓰고 URL 라우팅으로 세션을 표현한다"였다.
 
-**판정:** 학습자의 문제 제기("쿠키는 껐다 키면 날아가잖아")는 결과적으로 맞는 방향의 의심이었다. 다만 정답은 "쿠키 대신 DB"가 아니라 "쿠키 자체를 안 쓰고 URL 라우팅으로 세션을 표현한다"였다.
-
-**기억해야 할 기준:** README 힌트나 일반적인 웹 패턴("세션은 보통 쿠키")을 근거로 특정 프로젝트의 설계를 단정하지 않는다. 프레임워크에 종속된 구현 디테일은 실제 소스를 열어서 확인한 뒤에 답한다 — 이번 건은 그 원칙을 어기고 답했다가 정정한 사례로 남긴다.
+**기억해야 할 기준:** README 힌트나 일반적인 웹 패턴("세션은 보통 쿠키")을 근거로 특정 프로젝트의 설계를 단정하지 않는다. 프레임워크에 종속된 구현 디테일은 실제 소스를 열어서 확인한 뒤에 답한다.
 
 ## Q3~4. 체크포인트 자체 판정: "모른다"
 

@@ -32,4 +32,4 @@ law-rag를 현재 기준점으로 두고, 구현 방식을 한 단계씩 바꿔 
 
 - [law-rag 1블록 점검](../../learning-records/rag-system/2026-08-11-law-rag-roadmap-block-1-review.md) — 현재 구현과 초기 학습 판정
 - [law-rag 현재 기준점과 프레임워크 확장 계획](../../learning-records/rag-system/2026-08-12-law-rag-current-state-and-framework-expansion.md) — 다음 단계의 판단 기준
-- [LlamaIndex sec-insights 재현 8단계: Stage 7 SSE 스트리밍 질문·판정 증거](../../learning-records/rag-system/2026-08-18-llamaindex-sec-insights-stage7-sse.md) — 8단계 재현의 마지막 단계, SSE 연결 버그·세션 설계 오답 정정·도구와 에이전트 개수 혼동 정정
+- [LlamaIndex sec-insights 재현 8단계: Stage 7 SSE 스트리밍 질문·판정 증거](../../learning-records/rag-system/2026-08-18-llamaindex-sec-insights-stage7-sse.md) — 8단계 재현의 마지막 단계, SSE 연결 버그·세션 설계(URL 기반) 확인·도구와 에이전트 개수 혼동 정정
