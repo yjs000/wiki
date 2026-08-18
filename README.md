@@ -11,5 +11,6 @@
 ## 관련 프로젝트
 
 - [yjs000/law-rag](https://github.com/yjs000/law-rag) — 법령 RAG 시스템을 설계·구현하는 프로젝트입니다. Codex를 활용해 진행하며, RAG 시스템 및 에이전트 프레임워크 학습계획의 적용 대상입니다.
+- [yjs000/sec-insights-study](https://github.com/yjs000/sec-insights-study) — [run-llama/sec-insights](https://github.com/run-llama/sec-insights)를 8단계로 손으로 재현하는 학습 저장소입니다. RAG 학습계획의 "LlamaIndex를 이용해 RAG를 구현한다" 목표의 적용 대상입니다.
 
 각 구조 변경은 이 루트 README와 영향받는 모든 하위 README를 같은 커밋에서 갱신합니다.
