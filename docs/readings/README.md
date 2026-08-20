@@ -6,3 +6,4 @@
 
 - [AI 기초 개념](ai-foundations/README.md)
 - [AI 에이전트 시스템](agent-systems/README.md)
+- [프로그래밍 언어 기초](programming-foundations/README.md)
